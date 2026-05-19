@@ -1,0 +1,72 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/mi-primer-nodo-iot-ambiental/actividades",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/mi-primer-nodo-iot-ambiental/actividades",
+          "mainDocId": "antes-de-empezar",
+          "docs": [
+            {
+              "id": "antes-de-empezar",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/antes-de-empezar",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "ayuda",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/ayuda",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "hola-mundo",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/hola-mundo",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/intro"
+            },
+            {
+              "id": "medir-co2",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/medir-co2",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "medir-particulas",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/medir-particulas",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "primer-parpadeo",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/primer-parpadeo",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "sensor-simulado",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/sensor-simulado",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "tiempo-dentro-del-chip",
+              "path": "/mi-primer-nodo-iot-ambiental/actividades/tiempo-dentro-del-chip",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/mi-primer-nodo-iot-ambiental/actividades/antes-de-empezar",
+                "label": "antes-de-empezar"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "medir-particulas",
+  "title": "6. Medir partículas",
+  "description": "En esta actividad usaremos el sensor SEN55 para observar partículas en el aire.",
+  "source": "@site/docs/medir-particulas.md",
+  "sourceDirName": ".",
+  "slug": "/medir-particulas",
+  "permalink": "/mi-primer-nodo-iot-ambiental/actividades/medir-particulas",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "6. Medir partículas"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "5. Medir CO₂",
+    "permalink": "/mi-primer-nodo-iot-ambiental/actividades/medir-co2"
+  },
+  "next": {
+    "title": "Ayuda",
+    "permalink": "/mi-primer-nodo-iot-ambiental/actividades/ayuda"
+  }
+}

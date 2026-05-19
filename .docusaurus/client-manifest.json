@@ -1,0 +1,339 @@
+{
+  "entrypoints": [
+    "main"
+  ],
+  "origins": {
+    "237": [
+      237
+    ],
+    "285": [
+      61,
+      401,
+      869,
+      285
+    ],
+    "436": [
+      436
+    ],
+    "17896441": [
+      285,
+      869,
+      401
+    ],
+    "main": [
+      354,
+      869,
+      792
+    ],
+    "runtime~main": [
+      792,
+      869,
+      354
+    ],
+    "1f391b9e": [
+      285,
+      869,
+      61
+    ],
+    "4c678320": [
+      664
+    ],
+    "4f277aac": [
+      756
+    ],
+    "5702cc92": [
+      414
+    ],
+    "58d9eacc": [
+      465
+    ],
+    "59ecc719": [
+      813
+    ],
+    "5e95c892": [
+      647
+    ],
+    "7f5ee60f": [
+      73
+    ],
+    "89618adf": [
+      582
+    ],
+    "8b05fb77": [
+      378
+    ],
+    "92c0476d": [
+      230
+    ],
+    "95dd8097": [
+      129
+    ],
+    "9dd8a0d2": [
+      617
+    ],
+    "a1375f0d": [
+      838
+    ],
+    "a7456010": [
+      235
+    ],
+    "a7bd4aaa": [
+      98
+    ],
+    "a94703ab": [
+      869,
+      48
+    ],
+    "aba21aa0": [
+      742
+    ],
+    "f8409a7e": [
+      903
+    ],
+    "styles": [
+      48,
+      61,
+      285,
+      354,
+      401,
+      792,
+      869
+    ]
+  },
+  "assets": {
+    "48": {
+      "js": [
+        {
+          "file": "assets/js/a94703ab.745e9abf.js",
+          "hash": "038dfecb7797506a",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/a94703ab.745e9abf.js"
+        }
+      ]
+    },
+    "61": {
+      "js": [
+        {
+          "file": "assets/js/1f391b9e.b83f9826.js",
+          "hash": "b065914dfe5c012d",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/1f391b9e.b83f9826.js"
+        }
+      ]
+    },
+    "73": {
+      "js": [
+        {
+          "file": "assets/js/7f5ee60f.a4e2be9a.js",
+          "hash": "860c05011e5429d2",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/7f5ee60f.a4e2be9a.js"
+        }
+      ]
+    },
+    "98": {
+      "js": [
+        {
+          "file": "assets/js/a7bd4aaa.5d268a18.js",
+          "hash": "8c6389b3db940b3c",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/a7bd4aaa.5d268a18.js"
+        }
+      ]
+    },
+    "129": {
+      "js": [
+        {
+          "file": "assets/js/95dd8097.53b2eb86.js",
+          "hash": "83695897337b1ba1",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/95dd8097.53b2eb86.js"
+        }
+      ]
+    },
+    "230": {
+      "js": [
+        {
+          "file": "assets/js/92c0476d.d1559be1.js",
+          "hash": "94ed8af61be93ac6",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/92c0476d.d1559be1.js"
+        }
+      ]
+    },
+    "235": {
+      "js": [
+        {
+          "file": "assets/js/a7456010.95f1eed8.js",
+          "hash": "b3b6753e3f5cea06",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/a7456010.95f1eed8.js"
+        }
+      ]
+    },
+    "237": {
+      "js": [
+        {
+          "file": "assets/js/237.f289c8cf.js",
+          "hash": "8b1d6973d41408fc",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/237.f289c8cf.js"
+        }
+      ]
+    },
+    "285": {
+      "js": [
+        {
+          "file": "assets/js/285.0d627f4e.js",
+          "hash": "d634067760e5a824",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/285.0d627f4e.js"
+        }
+      ]
+    },
+    "354": {
+      "js": [
+        {
+          "file": "assets/js/runtime~main.123a664d.js",
+          "hash": "76a6bc3ba0dea8cd",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/runtime~main.123a664d.js"
+        }
+      ]
+    },
+    "378": {
+      "js": [
+        {
+          "file": "assets/js/8b05fb77.03dc10be.js",
+          "hash": "f0ba03d9ab0336b3",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/8b05fb77.03dc10be.js"
+        }
+      ]
+    },
+    "401": {
+      "js": [
+        {
+          "file": "assets/js/17896441.032e35b3.js",
+          "hash": "1c8f8084d110c6ec",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/17896441.032e35b3.js"
+        }
+      ]
+    },
+    "414": {
+      "js": [
+        {
+          "file": "assets/js/5702cc92.edbe19cd.js",
+          "hash": "6768a66337c408de",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/5702cc92.edbe19cd.js"
+        }
+      ]
+    },
+    "436": {
+      "js": [
+        {
+          "file": "assets/js/436.254bb900.js",
+          "hash": "5388a5cdde84db4e",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/436.254bb900.js"
+        }
+      ]
+    },
+    "465": {
+      "js": [
+        {
+          "file": "assets/js/58d9eacc.10e9db9e.js",
+          "hash": "fdbca4a27fb02f33",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/58d9eacc.10e9db9e.js"
+        }
+      ]
+    },
+    "582": {
+      "js": [
+        {
+          "file": "assets/js/89618adf.333695d0.js",
+          "hash": "24c3503acdc8b127",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/89618adf.333695d0.js"
+        }
+      ]
+    },
+    "617": {
+      "js": [
+        {
+          "file": "assets/js/9dd8a0d2.405955da.js",
+          "hash": "2bde2228cf4a5464",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/9dd8a0d2.405955da.js"
+        }
+      ]
+    },
+    "647": {
+      "js": [
+        {
+          "file": "assets/js/5e95c892.28a62cfa.js",
+          "hash": "329bc902abd7d896",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/5e95c892.28a62cfa.js"
+        }
+      ]
+    },
+    "664": {
+      "js": [
+        {
+          "file": "assets/js/4c678320.60d572d7.js",
+          "hash": "baad0752bec08c65",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/4c678320.60d572d7.js"
+        }
+      ]
+    },
+    "742": {
+      "js": [
+        {
+          "file": "assets/js/aba21aa0.4279ac5f.js",
+          "hash": "378a45634ebedd91",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/aba21aa0.4279ac5f.js"
+        }
+      ]
+    },
+    "756": {
+      "js": [
+        {
+          "file": "assets/js/4f277aac.18bea700.js",
+          "hash": "05c3224830591aae",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/4f277aac.18bea700.js"
+        }
+      ]
+    },
+    "792": {
+      "js": [
+        {
+          "file": "assets/js/main.4f538fb6.js",
+          "hash": "966a1311c13bc1de",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/main.4f538fb6.js"
+        }
+      ]
+    },
+    "813": {
+      "js": [
+        {
+          "file": "assets/js/59ecc719.f52977cc.js",
+          "hash": "60901ed70bf54360",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/59ecc719.f52977cc.js"
+        }
+      ]
+    },
+    "838": {
+      "js": [
+        {
+          "file": "assets/js/a1375f0d.2f78b01d.js",
+          "hash": "aada4f46bbd08c80",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/a1375f0d.2f78b01d.js"
+        }
+      ]
+    },
+    "869": {
+      "css": [
+        {
+          "file": "assets/css/styles.ae228464.css",
+          "hash": "b229013cb1f6c662",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/css/styles.ae228464.css"
+        }
+      ]
+    },
+    "903": {
+      "js": [
+        {
+          "file": "assets/js/f8409a7e.653f548b.js",
+          "hash": "8aaa478e8c703b22",
+          "publicPath": "/mi-primer-nodo-iot-ambiental/assets/js/f8409a7e.653f548b.js"
+        }
+      ]
+    }
+  }
+}

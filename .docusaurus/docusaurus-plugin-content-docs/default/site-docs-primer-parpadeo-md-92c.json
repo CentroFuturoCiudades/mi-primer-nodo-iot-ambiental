@@ -1,0 +1,25 @@
+{
+  "id": "primer-parpadeo",
+  "title": "2. Primer parpadeo",
+  "description": "Objetivo",
+  "source": "@site/docs/primer-parpadeo.md",
+  "sourceDirName": ".",
+  "slug": "/primer-parpadeo",
+  "permalink": "/mi-primer-nodo-iot-ambiental/actividades/primer-parpadeo",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "2. Primer parpadeo"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "1. Hola mundo",
+    "permalink": "/mi-primer-nodo-iot-ambiental/actividades/hola-mundo"
+  },
+  "next": {
+    "title": "3. El tiempo dentro del chip",
+    "permalink": "/mi-primer-nodo-iot-ambiental/actividades/tiempo-dentro-del-chip"
+  }
+}

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>De la arena al sensor inteligente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css">
+
+  <style>
+    :root {
+      --teal: #00b894;
+      --amber: #f5b041;
+    }
+
+    .reveal h1,
+    .reveal h2 {
+      text-transform: none;
+      letter-spacing: -0.04em;
+    }
+
+    .eyebrow {
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.55em;
+      font-weight: 800;
+    }
+
+    .lab-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      background: var(--teal);
+      color: #041212 !important;
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 0.55em;
+    }
+  </style>
+</head>
+
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section data-background-gradient="linear-gradient(120deg, #020303, #063a37)">
+      <p class="eyebrow">Taller IoT ambiental</p>
+      <h1>De la arena al sensor inteligente</h1>
+      <p>Materia, chips, código y ciudades que aprenden a observarse.</p>
+      <a class="lab-button" href="../actividades/antes-de-empezar">Ir a actividades</a>
+    </section>
+
+    <section data-background-gradient="linear-gradient(120deg, #3b2f1e, #050505)">
+      <p class="eyebrow">Escena 1</p>
+      <h2>Antes del dato, hubo materia.</h2>
+      <p class="fragment">Antes del sensor, hubo silicio.</p>
+      <p class="fragment">Antes del código, hubo transistores.</p>
+    </section>
+
+    <section>
+      <h2>El viaje</h2>
+      <p>Materia → Chip → Código → LED → Sensor → Ciudad</p>
+    </section>
+
+    <section>
+      <h2>El microcontrolador habla</h2>
+      <p>Primero veremos texto en el monitor de mensajes.</p>
+      <a class="lab-button" href="../actividades/hola-mundo">Abrir actividad</a>
+    </section>
+
+    <section>
+      <h2>El chip manda una señal</h2>
+      <pre><code>
+digitalWrite(LED_BUILTIN, HIGH);
+delay(1000);
+digitalWrite(LED_BUILTIN, LOW);
+delay(1000);
+      </code></pre>
+      <a class="lab-button" href="../actividades/primer-parpadeo">Abrir actividad</a>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    transition: 'fade'
+  });
+</script>
+</body>
+</html>

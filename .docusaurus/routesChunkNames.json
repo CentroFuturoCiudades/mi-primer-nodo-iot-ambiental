@@ -1,0 +1,72 @@
+{
+  "/mi-primer-nodo-iot-ambiental/markdown-page-d75": {
+    "__comp": "1f391b9e",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "content": "4c678320"
+  },
+  "/mi-primer-nodo-iot-ambiental/slides-a87": {
+    "__comp": "4f277aac",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades-7f5": {
+    "__comp": "5e95c892",
+    "__context": {
+      "plugin": "aba21aa0"
+    }
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades-f7a": {
+    "__comp": "a7bd4aaa",
+    "__props": "58d9eacc"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades-1e8": {
+    "__comp": "a94703ab"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/antes-de-empezar-24c": {
+    "__comp": "17896441",
+    "content": "7f5ee60f"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/ayuda-f2c": {
+    "__comp": "17896441",
+    "content": "5702cc92"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/hola-mundo-32b": {
+    "__comp": "17896441",
+    "content": "59ecc719"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/intro-15c": {
+    "__comp": "17896441",
+    "content": "f8409a7e"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/medir-co2-8c1": {
+    "__comp": "17896441",
+    "content": "8b05fb77"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/medir-particulas-a16": {
+    "__comp": "17896441",
+    "content": "89618adf"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/primer-parpadeo-7fa": {
+    "__comp": "17896441",
+    "content": "92c0476d"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/sensor-simulado-762": {
+    "__comp": "17896441",
+    "content": "95dd8097"
+  },
+  "/mi-primer-nodo-iot-ambiental/actividades/tiempo-dentro-del-chip-f52": {
+    "__comp": "17896441",
+    "content": "a1375f0d"
+  },
+  "/mi-primer-nodo-iot-ambiental/-183": {
+    "__comp": "9dd8a0d2",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
+  }
+}
