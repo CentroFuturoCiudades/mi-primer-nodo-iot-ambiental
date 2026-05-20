@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkmi_primer_nodo_iot_ambiental_docusaurus=globalThis.webpackChunkmi_primer_nodo_iot_ambiental_docusaurus||[]).push([[235],{8552(a){a.exports=JSON.parse('{"name":"docusaurus-plugin-content-pages","id":"default"}')}}]);
