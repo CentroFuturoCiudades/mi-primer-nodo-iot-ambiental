@@ -1,0 +1,1 @@
+var e=`/mi-primer-nodo-iot-ambiental/presentacion/assets/mineria-tierras-raras-BrM6FAFj.png`;export{e as t};

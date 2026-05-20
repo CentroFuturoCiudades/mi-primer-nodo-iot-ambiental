@@ -262,3 +262,157 @@ html[data-theme='dark'] .stepCard {
     grid-template-columns: 1fr;
   }
 }
+
+
+.slidesPage {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.slidesHeader {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+.slidesHeader h1 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.slidesHeader p {
+  max-width: 850px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.slidesActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.slidesFullButton {
+  display: inline-block;
+  border-radius: 999px;
+  background: #f5b041;
+  color: #201200 !important;
+  padding: 0.8rem 1.15rem;
+  font-weight: 900;
+  text-decoration: none !important;
+}
+
+.slidesSecondaryButton {
+  display: inline-block;
+  border-radius: 999px;
+  border: 2px solid #00897b;
+  color: #00897b !important;
+  padding: 0.68rem 1.05rem;
+  font-weight: 900;
+  text-decoration: none !important;
+}
+
+.slidesFrameWrapper {
+  width: 100%;
+  height: calc(100vh - 235px);
+  min-height: 620px;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  border-top: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.slidesFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+@media (max-width: 800px) {
+  .slidesFrameWrapper {
+    height: 70vh;
+    min-height: 420px;
+  }
+}
+
+/* Slidev integrado en Docusaurus */
+.slidesPage {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.slidesHeader {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+.slidesHeader h1 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.slidesHeader p {
+  max-width: 850px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.slidesActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.slidesFullButton {
+  display: inline-block;
+  border-radius: 999px;
+  background: #f5b041;
+  color: #201200 !important;
+  padding: 0.8rem 1.15rem;
+  font-weight: 900;
+  text-decoration: none !important;
+}
+
+.slidesSecondaryButton {
+  display: inline-block;
+  border-radius: 999px;
+  border: 2px solid #00897b;
+  color: #00897b !important;
+  padding: 0.68rem 1.05rem;
+  font-weight: 900;
+  text-decoration: none !important;
+}
+
+.slidesFrameWrapper {
+  width: 100%;
+  height: calc(100vh - 235px);
+  min-height: 620px;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  border-top: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.slidesFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+@media (max-width: 800px) {
+  .slidesFrameWrapper {
+    height: 70vh;
+    min-height: 420px;
+  }
+}

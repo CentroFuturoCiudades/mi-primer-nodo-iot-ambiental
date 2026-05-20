@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#51351f"/>
+      <stop offset="100%" stop-color="#080604"/>
+    </linearGradient>
+    <linearGradient id="soil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c58a3a"/>
+      <stop offset="50%" stop-color="#8b5a27"/>
+      <stop offset="100%" stop-color="#3d2818"/>
+    </linearGradient>
+    <style>
+      .kicker{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:26px;font-weight:900;fill:#f5b041;letter-spacing:7px}
+      .title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:78px;font-weight:900;fill:#fff;letter-spacing:-3px}
+      .text{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:32px;font-weight:600;fill:#eadfd3}
+      .label{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:26px;font-weight:900;fill:#061716}
+      .chip{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:28px;font-weight:900;fill:#00b894}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <path d="M0 610 C180 500 300 650 470 555 C640 460 820 620 1000 500 C1200 360 1370 480 1600 330 L1600 900 L0 900 Z" fill="url(#soil)"/>
+  <path d="M0 705 C180 650 320 740 480 680 C680 610 770 710 970 630 C1150 560 1350 590 1600 500 L1600 900 L0 900 Z" fill="#5b351c" opacity=".78"/>
+  <circle cx="1270" cy="130" r="260" fill="#f5b041" opacity=".12"/>
+  <circle cx="380" cy="760" r="260" fill="#00b894" opacity=".10"/>
+  <text x="90" y="115" class="kicker">DE LA TIERRA AL CHIP</text>
+  <text x="90" y="215" class="title">Antes del sensor, hubo materiales</text>
+  <text x="90" y="278" class="text">Los microcontroladores están hechos de materia transformada con precisión.</text>
+  <g transform="translate(120,420)">
+    <rect width="360" height="90" rx="45" fill="#f5b041"/>
+    <text x="55" y="57" class="label">minerales</text>
+  </g>
+  <path d="M520 465 L690 465" stroke="#eadfd3" stroke-width="8" stroke-linecap="round"/>
+  <path d="M670 440 L700 465 L670 490" fill="none" stroke="#eadfd3" stroke-width="8" stroke-linecap="round"/>
+  <g transform="translate(720,420)">
+    <rect width="360" height="90" rx="45" fill="#00b894"/>
+    <text x="45" y="57" class="label">materiales electrónicos</text>
+  </g>
+  <path d="M1120 465 L1290 465" stroke="#eadfd3" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1270 440 L1300 465 L1270 490" fill="none" stroke="#eadfd3" stroke-width="8" stroke-linecap="round"/>
+  <g transform="translate(1320,385)">
+    <rect width="170" height="160" rx="24" fill="#061716" stroke="#00b894" stroke-width="7"/>
+    <rect x="34" y="42" width="102" height="76" rx="12" fill="#0b4c46" stroke="#f5b041" stroke-width="4"/>
+    <text x="38" y="145" class="chip">chip</text>
+  </g>
+  <text x="105" y="790" class="text">Silicio, cobre, aluminio y otros materiales permiten construir circuitos, conexiones y sensores.</text>
+</svg>
