@@ -9,9 +9,9 @@ const sidebars = {
       type: 'category',
       label: 'Actividades',
       items: [
-        'hola-mundo',
-        'primer-parpadeo',
         'tiempo-dentro-del-chip',
+        'primer-parpadeo',
+        'hola-mundo',
         'sensor-simulado',
         'medir-co2',
         'medir-particulas',

@@ -1,8 +1,8 @@
 ---
-title: 1. Hola mundo
+title: 3. Hola mundo
 ---
 
-# Actividad 1 — Hola mundo
+# Actividad 3 — Hola mundo
 
 ## Objetivo
 

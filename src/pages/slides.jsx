@@ -1,10 +1,57 @@
-import React from 'react';
+import React, {useMemo, useRef} from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import {useLocation} from '@docusaurus/router';
 
 export default function SlidesPage() {
+  const iframeRef = useRef(null);
+  const location = useLocation();
   const presentacionUrl = useBaseUrl('/presentacion/index.html');
+  const presentacionBaseUrl = useBaseUrl('/presentacion/');
+  const targetSlide = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+    const slide = params.get('slide');
+    return slide && /^\d+$/.test(slide) ? slide : null;
+  }, [location.search]);
+
+  const handleFrameLoad = () => {
+    if (!targetSlide || !iframeRef.current?.contentWindow) {
+      return;
+    }
+
+    const frameWindow = iframeRef.current.contentWindow;
+    const targetPath = `${presentacionBaseUrl}${targetSlide}`;
+
+    const goToSlide = () => {
+      try {
+        frameWindow.history.replaceState(null, '', targetPath);
+        frameWindow.dispatchEvent(new PopStateEvent('popstate', {state: null}));
+      } catch {
+        // If the iframe is not ready yet, keep the regular first slide.
+      }
+    };
+
+    goToSlide();
+    window.setTimeout(goToSlide, 150);
+    window.setTimeout(goToSlide, 500);
+  };
+
+  const handleFullscreen = () => {
+    const frame = iframeRef.current;
+
+    if (frame?.requestFullscreen) {
+      frame.requestFullscreen();
+      return;
+    }
+
+    if (frame?.webkitRequestFullscreen) {
+      frame.webkitRequestFullscreen();
+      return;
+    }
+
+    window.open(presentacionUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <Layout
@@ -25,14 +72,13 @@ export default function SlidesPage() {
           </p>
 
           <div className="slidesActions">
-            <a
+            <button
               className="slidesFullButton"
-              href={presentacionUrl}
-              target="_blank"
-              rel="noreferrer"
+              type="button"
+              onClick={handleFullscreen}
             >
               Abrir en pantalla completa
-            </a>
+            </button>
 
             <Link
               className="slidesSecondaryButton"
@@ -45,9 +91,11 @@ export default function SlidesPage() {
 
         <section className="slidesFrameWrapper">
           <iframe
+            ref={iframeRef}
             className="slidesFrame"
             src={presentacionUrl}
             title="Historia visual del taller"
+            onLoad={handleFrameLoad}
             allowFullScreen
           />
         </section>

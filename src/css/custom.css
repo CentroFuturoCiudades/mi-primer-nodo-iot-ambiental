@@ -297,12 +297,15 @@ html[data-theme='dark'] .stepCard {
 
 .slidesFullButton {
   display: inline-block;
+  border: 0;
   border-radius: 999px;
   background: #f5b041;
   color: #201200 !important;
   padding: 0.8rem 1.15rem;
+  font: inherit;
   font-weight: 900;
   text-decoration: none !important;
+  cursor: pointer;
 }
 
 .slidesSecondaryButton {
@@ -374,12 +377,15 @@ html[data-theme='dark'] .stepCard {
 
 .slidesFullButton {
   display: inline-block;
+  border: 0;
   border-radius: 999px;
   background: #f5b041;
   color: #201200 !important;
   padding: 0.8rem 1.15rem;
+  font: inherit;
   font-weight: 900;
   text-decoration: none !important;
+  cursor: pointer;
 }
 
 .slidesSecondaryButton {

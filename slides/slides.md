@@ -289,106 +289,140 @@ class: microcontroller-slide
       <span>ADC</span>
       <span>UART/I2C/SPI</span>
     </div>
-    <p class="mcu-board-note">En la tarjeta Arduino Mega, el <strong>ATmega2560</strong> es el microcontrolador.</p>
+    <p class="mcu-board-note">Para el taller usaremos la <strong>Blues Swan R5</strong>: prepara Arduino IDE, puerto COM y modo de carga.</p>
+    <a href="../actividades/antes-de-empezar" target="_top" class="mcu-prepare-link" aria-label="Abrir la actividad Antes de empezar para preparar la Blues Swan R5">
+      <span class="mcu-prepare-kicker">Siguiente paso</span>
+      <strong>Preparar mi tarjeta Swan</strong>
+      <small>IDE + COM + carga</small>
+      <span class="mcu-prepare-arrow">-&gt;</span>
+    </a>
   </div>
   <figure class="mcu-board">
     <img src="./assets/imagenes/atmega2560.png" alt="Arduino Mega con partes etiquetadas" />
-    <figcaption>Arduino Mega: el ATmega2560 es el microcontrolador; la placa facilita alimentación, USB y conexiones.</figcaption>
   </figure>
 </div>
+
+
 
 ---
 
 <p class="eyebrow">Escena 12</p>
 
-# Cargar un programa
+# Del algoritmo a la memoria
 
-Cuando cargamos código, no solo copiamos texto.
+<div class="program-machine">
+  <div class="program-source">
+    <div class="source-code">
+      <span>digitalWrite(HIGH);</span>
+      <span>delay(1000);</span>
+      <span>digitalWrite(LOW);</span>
+      <span>delay(1000);</span>
+    </div>
+    <div class="compile-lane" aria-label="Flujo de compilación">
+      <span>programa</span>
+      <span>compilador</span>
+      <span>binario</span>
+      <span>Flash</span>
+      <i></i>
+    </div>
+    <p>El código humano se traduce a instrucciones de máquina y queda guardado como programa interno.</p>
+  </div>
 
-<div class="timeline compact">
-  <span>Código Arduino</span>
-  <span>compilación</span>
-  <span>instrucciones</span>
-  <span>Flash</span>
+  <div class="mcu-core-map" aria-label="Animación de bloques internos del microcontrolador">
+    <div class="core-block flash"><b>Memoria de programa</b><small>guarda el código</small></div>
+    <div class="core-block pc"><b>Contador de programa</b><small>PC: siguiente dirección</small></div>
+    <div class="core-block decoder"><b>Decodificador</b><small>entiende la instrucción</small></div>
+    <div class="core-block regs"><b>Registros</b><small>datos inmediatos</small></div>
+    <div class="core-block alu"><b>Unidad lógica</b><small>ALU: calcula y compara</small></div>
+    <div class="core-block ram"><b>Memoria de datos</b><small>RAM: variables</small></div>
+    <div class="core-block gpio"><b>Entradas y salidas</b><small>GPIO: voltaje al LED</small></div>
+    <span class="fetch-dot"></span>
+    <span class="execute-dot"></span>
+    <span class="io-dot"></span>
+  </div>
+
+  <div class="machine-caption">
+    <b>Ciclo de ejecución</b>
+    <span>buscar instrucción → decodificar → leer registros → ejecutar → escribir resultado → avanzar a la siguiente dirección</span>
+  </div>
 </div>
-
-<p class="takeaway">El programa queda guardado y se ejecuta cuando encendemos la tarjeta.</p>
 
 ---
 
 <p class="eyebrow">Escena 13</p>
 
-# Un programa es una lista de instrucciones
+# Qué pasa durante `delay(1000)`
 
-<div class="instruction-grid">
-  <div>
-    <div class="instruction active">1. pinMode(...)</div>
-    <div class="instruction">2. digitalWrite(HIGH)</div>
-    <div class="instruction">3. delay(1000)</div>
-    <div class="instruction">4. digitalWrite(LOW)</div>
-    <div class="instruction">5. delay(1000)</div>
+<div class="timing-deep">
+  <div class="timing-code-panel">
+    <div class="timing-code-card" aria-label="Código Arduino que controla el LED">
+      <span><b>01</b> digitalWrite(LED_BUILTIN, HIGH);</span>
+      <span><b>02</b> delay(1000);</span>
+      <span><b>03</b> digitalWrite(LED_BUILTIN, LOW);</span>
+      <span><b>04</b> delay(1000);</span>
+      <i class="code-scan"></i>
+    </div>
+    <div class="delay-truth">
+      <b>Idea clave</b>
+      <span>`delay(1000)` no es una sola instrucción del microcontrolador. Es una función que espera hasta que la base de tiempo acumule 1000 milisegundos.</span>
+    </div>
+    <div class="assembly-window" aria-label="Dos formas de construir una espera">
+      <div><b>Arduino</b><span>consulta un contador de milisegundos</span><small>más estable frente a la frecuencia real del reloj</small></div>
+      <div><b>temporizador</b><span>recibe pulsos y genera una marca cada 1 ms</span><small>por ejemplo: SysTick, el temporizador del núcleo</small></div>
+      <div><b>bucle</b><span>mientras no pasen 1000 ms, vuelve a revisar</span><small>comparar y saltar, parecido a CMP + BNE</small></div>
+      <div><b>ensamblador</b><span>también se puede esperar gastando ciclos en un contador</span><small>restar y saltar, por ejemplo SUBS + BNE</small></div>
+    </div>
   </div>
-  <div class="cpu-box">
-    CPU
-    <small>leer -> interpretar -> ejecutar -> avanzar</small>
+  <div class="clock-lab" aria-label="Modelo visual del reloj, temporizador y espera activa">
+    <div class="osc-core">
+      <b>Oscilador</b>
+      <small>marca el ritmo eléctrico</small>
+      <span>millones de ciclos por segundo</span>
+    </div>
+    <div class="wave-scope">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <i class="cycle-runner"></i>
+    </div>
+    <div class="cycle-math">
+      <div><b>ciclo</b><span>un latido del reloj interno</span></div>
+      <div><b>instrucción</b><span>puede tomar uno o varios ciclos</span></div>
+      <div><b>interrupción</b><span>una pausa breve para actualizar el tiempo</span></div>
+    </div>
+    <div class="delay-engine" aria-label="Ruta del tiempo dentro del microcontrolador">
+      <div class="timer-ladder">
+        <div><b>reloj</b><span>pulsos muy rápidos</span></div>
+        <i></i>
+        <div><b>divisor</b><span>baja la velocidad de conteo</span></div>
+        <i></i>
+        <div><b>temporizador</b><span>avisa cada 1 ms</span></div>
+        <i></i>
+        <div><b>contador</b><span>0, 1, 2... 1000 ms</span></div>
+      </div>
+      <div class="wait-loop-card">
+        <strong>Mientras tanto, el procesador espera</strong>
+        <div><b>leer</b><span>tiempo actual</span></div>
+        <div><b>restar</b><span>actual - inicio</span></div>
+        <div><b>comparar</b><span>¿ya son 1000?</span></div>
+        <div><b>saltar</b><span>si falta tiempo, repetir</span></div>
+      </div>
+      <div class="asm-delay-card">
+        <strong>Retardo hecho a mano</strong>
+        <code>repetir: restar 1<br>si no es cero, volver</code>
+        <span>Funciona, pero depende mucho de la frecuencia, los ciclos de cada instrucción, optimizaciones e interrupciones.</span>
+      </div>
+    </div>
+    <a href="../actividades/tiempo-dentro-del-chip" target="_top" class="mcu-prepare-link timing-next-link" aria-label="Ir a la Actividad 1 Código memoria y tiempo">
+      <span class="mcu-prepare-kicker">Siguiente actividad</span>
+      <strong>Actividad 1: código, memoria y tiempo</strong>
+      <small>trazar memoria, reloj y temporizador</small>
+      <span class="mcu-prepare-arrow">-&gt;</span>
+    </a>
   </div>
 </div>
 
 ---
 
 <p class="eyebrow">Escena 14</p>
-
-# Arduino es una forma humana de escribir instrucciones
-
-```cpp
-digitalWrite(LED_BUILTIN, HIGH);
-delay(1000);
-```
-
-<v-clicks>
-
-- Nosotros escribimos algo fácil de leer.
-- El compilador lo transforma en pasos más pequeños.
-- El microcontrolador ejecuta esos pasos con su CPU.
-
-</v-clicks>
-
----
-
-<p class="eyebrow">Escena 15</p>
-
-# El microcontrolador tiene ritmo
-
-<div class="clock-wave">
-  <span></span><span></span><span></span><span></span><span></span><span></span>
-</div>
-
-<v-clicks>
-
-- El oscilador genera pulsos.
-- Los pulsos marcan el ritmo interno.
-- La tarjeta avanza paso a paso.
-
-</v-clicks>
-
----
-
-<p class="eyebrow">Escena 16</p>
-
-# `delay(1000)` no es magia
-
-<div class="timeline compact">
-  <span>reloj</span>
-  <span>temporizador</span>
-  <span>1000 ms</span>
-  <span>siguiente instrucción</span>
-</div>
-
-<a href="../actividades/tiempo-dentro-del-chip" target="_top" class="quiet-link">Actividad: tiempo dentro del chip</a>
-
----
-
-<p class="eyebrow">Escena 17</p>
 
 # El LED no entiende código
 
@@ -408,7 +442,7 @@ digitalWrite(LED_BUILTIN, HIGH);
 
 ---
 
-<p class="eyebrow">Escena 18</p>
+<p class="eyebrow">Escena 15</p>
 
 # Variables y decisiones
 
@@ -430,7 +464,7 @@ if (co2 > 1000) {
 
 ---
 
-<p class="eyebrow">Escena 19</p>
+<p class="eyebrow">Escena 16</p>
 
 # Un sensor convierte el ambiente en números
 
