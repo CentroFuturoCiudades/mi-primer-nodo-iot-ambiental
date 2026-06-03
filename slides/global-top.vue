@@ -11,7 +11,7 @@ function getExitUrl() {
   if (window.location.hostname === 'localhost' && window.location.port === '3030') {
     return 'http://localhost:3000/mi-primer-nodo-iot-ambiental/slides/'
   }
-  return '../slides/'
+  return `${window.location.origin}/mi-primer-nodo-iot-ambiental/slides/`
 }
 
 function exitToCourse() {
