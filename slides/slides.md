@@ -308,10 +308,14 @@ class: microcontroller-slide
 
 <p class="eyebrow">Escena 12</p>
 
-# Del algoritmo a la memoria
+# Del algoritmo a instrucciones en memoria
 
 <div class="program-machine">
   <div class="program-source">
+    <div class="algorithm-card">
+      <b>Algoritmo</b>
+      <span>Una receta finita de pasos: inicializar, decidir, repetir y producir una salida.</span>
+    </div>
     <div class="source-code">
       <span>digitalWrite(HIGH);</span>
       <span>delay(1000);</span>
@@ -325,7 +329,12 @@ class: microcontroller-slide
       <span>Flash</span>
       <i></i>
     </div>
-    <p>El código humano se traduce a instrucciones de máquina y queda guardado como programa interno.</p>
+    <div class="control-structures" aria-label="Estructuras de control">
+      <div><b>secuencia</b><span>paso 1 → paso 2</span></div>
+      <div><b>if</b><span>elegir un camino</span></div>
+      <div><b>while / for</b><span>repetir mientras se cumpla una condición</span></div>
+    </div>
+    <p>El programa se traduce a instrucciones binarias y queda guardado en Flash. La CPU las lee en orden, salvo cuando una condición o un ciclo cambia el flujo.</p>
   </div>
 
   <div class="mcu-core-map" aria-label="Animación de bloques internos del microcontrolador">
@@ -343,10 +352,12 @@ class: microcontroller-slide
 
   <div class="machine-caption">
     <b>Ciclo de ejecución</b>
-    <span>buscar instrucción → decodificar → leer registros → ejecutar → escribir resultado → avanzar a la siguiente dirección</span>
+    <span>buscar instrucción → decodificar → ejecutar → actualizar registros o salidas → avanzar, saltar o repetir</span>
   </div>
 </div>
 
+---
+class: delay-slide
 ---
 
 <p class="eyebrow">Escena 13</p>
@@ -366,11 +377,10 @@ class: microcontroller-slide
       <b>Idea clave</b>
       <span>`delay(1000)` no es una sola instrucción del microcontrolador. Es una función que espera hasta que la base de tiempo acumule 1000 milisegundos.</span>
     </div>
-    <div class="assembly-window" aria-label="Dos formas de construir una espera">
-      <div><b>Arduino</b><span>consulta un contador de milisegundos</span><small>más estable frente a la frecuencia real del reloj</small></div>
-      <div><b>temporizador</b><span>recibe pulsos y genera una marca cada 1 ms</span><small>por ejemplo: SysTick, el temporizador del núcleo</small></div>
-      <div><b>bucle</b><span>mientras no pasen 1000 ms, vuelve a revisar</span><small>comparar y saltar, parecido a CMP + BNE</small></div>
-      <div><b>ensamblador</b><span>también se puede esperar gastando ciclos en un contador</span><small>restar y saltar, por ejemplo SUBS + BNE</small></div>
+    <div class="delay-models" aria-label="Formas de construir una espera">
+      <div><b>base de tiempo</b><span>un temporizador actualiza un contador de milisegundos</span><small>Arduino usa esta idea para `delay()`</small></div>
+      <div><b>espera activa</b><span>leer → comparar → repetir si todavía falta tiempo</span><small>el procesador permanece ocupado esperando</small></div>
+      <div><b>retardo manual</b><span>un `while` o `for` consume ciclos de reloj</span><small>se estima con frecuencia y ciclos por vuelta</small></div>
     </div>
   </div>
   <div class="clock-lab" aria-label="Modelo visual del reloj, temporizador y espera activa">
@@ -405,16 +415,19 @@ class: microcontroller-slide
         <div><b>comparar</b><span>¿ya son 1000?</span></div>
         <div><b>saltar</b><span>si falta tiempo, repetir</span></div>
       </div>
-      <div class="asm-delay-card">
+      <div class="manual-delay-card">
         <strong>Retardo hecho a mano</strong>
-        <code>repetir: restar 1<br>si no es cero, volver</code>
-        <span>Funciona, pero depende mucho de la frecuencia, los ciclos de cada instrucción, optimizaciones e interrupciones.</span>
+        <code>while (contador &gt; 0) {<br>&nbsp;&nbsp;NOP(); contador--;<br>}</code>
+        <div class="manual-delay-formula">
+          <b>tiempo ≈ vueltas × ciclos/vuelta ÷ F_CPU</b>
+          <span>120 MHz y 5 ciclos/vuelta → 24 M vueltas ≈ 1 s</span>
+        </div>
       </div>
     </div>
-    <a href="../actividades/tiempo-dentro-del-chip" target="_top" class="mcu-prepare-link timing-next-link" aria-label="Ir a la Actividad 1 Código memoria y tiempo">
+    <a href="../actividades/tiempo-dentro-del-chip" target="_top" class="mcu-prepare-link timing-next-link" aria-label="Ir a la Actividad 1 Algoritmo memoria y tiempo visible">
       <span class="mcu-prepare-kicker">Siguiente actividad</span>
-      <strong>Actividad 1: código, memoria y tiempo</strong>
-      <small>trazar memoria, reloj y temporizador</small>
+      <strong>Actividad 1: algoritmo, memoria y LED</strong>
+      <small>crear señales, medir tiempos y probar un retardo manual</small>
       <span class="mcu-prepare-arrow">-&gt;</span>
     </a>
   </div>
@@ -438,7 +451,7 @@ pinMode(LED_BUILTIN, OUTPUT);
 digitalWrite(LED_BUILTIN, HIGH);
 ```
 
-<a href="../actividades/primer-parpadeo" target="_top" class="quiet-link">Actividad: primer parpadeo</a>
+<a href="../actividades/tiempo-dentro-del-chip" target="_top" class="quiet-link">Actividad: algoritmo, memoria y LED</a>
 
 ---
 

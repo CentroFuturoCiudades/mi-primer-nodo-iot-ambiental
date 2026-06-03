@@ -1,8 +1,8 @@
 ---
-title: 5. Medir CO₂
+title: 4. Medir CO₂
 ---
 
-# Actividad 5 — Medir CO₂
+# Actividad 4 — Medir CO₂
 
 En esta actividad conectaremos el sensor SCD41 para medir CO₂, temperatura y humedad.
 

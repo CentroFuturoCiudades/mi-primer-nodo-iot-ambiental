@@ -1,8 +1,8 @@
 ---
-title: 6. Medir partículas
+title: 5. Medir partículas
 ---
 
-# Actividad 6 — Medir partículas
+# Actividad 5 — Medir partículas
 
 En esta actividad usaremos el sensor SEN55 para observar partículas en el aire.
 

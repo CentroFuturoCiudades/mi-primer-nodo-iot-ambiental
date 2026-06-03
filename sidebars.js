@@ -10,7 +10,6 @@ const sidebars = {
       label: 'Actividades',
       items: [
         'tiempo-dentro-del-chip',
-        'primer-parpadeo',
         'hola-mundo',
         'sensor-simulado',
         'medir-co2',

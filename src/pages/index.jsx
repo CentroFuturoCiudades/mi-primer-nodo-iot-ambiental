@@ -48,6 +48,14 @@ export default function Home() {
           <div className="activityGrid">
             <ActivityCard
               number="01"
+              tag="Tiempo"
+              title="Algoritmo, memoria y LED"
+              description="Crearás señales con el LED y verás cómo el algoritmo se relaciona con memoria, GPIO, reloj y temporizadores."
+              to="/actividades/tiempo-dentro-del-chip"
+            />
+
+            <ActivityCard
+              number="02"
               tag="Mensaje"
               title="Hola mundo"
               description="La tarjeta enviará su primer mensaje a la computadora. Aquí aprenderás a usar el monitor de mensajes."
@@ -55,23 +63,7 @@ export default function Home() {
             />
 
             <ActivityCard
-              number="02"
-              tag="LED"
-              title="Primer parpadeo"
-              description="El microcontrolador encenderá y apagará un LED. Es la primera señal física que produce el chip."
-              to="/actividades/primer-parpadeo"
-            />
-
-            <ActivityCard
               number="03"
-              tag="Tiempo"
-              title="El tiempo dentro del chip"
-              description="Verás cómo una espera en el código se relaciona con el reloj interno del microcontrolador."
-              to="/actividades/tiempo-dentro-del-chip"
-            />
-
-            <ActivityCard
-              number="04"
               tag="Aire"
               title="Medir el ambiente"
               description="Conectaremos sensores para medir CO₂, temperatura, humedad y partículas en el aire."

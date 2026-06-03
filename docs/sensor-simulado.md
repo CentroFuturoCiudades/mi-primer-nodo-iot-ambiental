@@ -1,8 +1,8 @@
 ---
-title: 4. Sensor simulado
+title: 3. Sensor simulado
 ---
 
-# Actividad 4 — Sensor simulado
+# Actividad 3 — Sensor simulado
 
 Antes de conectar un sensor real, podemos simular un dato.
 
