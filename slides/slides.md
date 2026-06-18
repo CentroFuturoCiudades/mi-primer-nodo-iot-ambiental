@@ -424,34 +424,34 @@ class: delay-slide
         </div>
       </div>
     </div>
-    <a href="../actividades/tiempo-dentro-del-chip" target="_top" class="mcu-prepare-link timing-next-link" aria-label="Ir a la Actividad 1 Algoritmo memoria y tiempo visible">
-      <span class="mcu-prepare-kicker">Siguiente actividad</span>
-      <strong>Actividad 1: algoritmo, memoria y LED</strong>
-      <small>crear señales, medir tiempos y probar un retardo manual</small>
+    <div class="mcu-prepare-link timing-next-link">
+      <span class="mcu-prepare-kicker">Siguiente idea</span>
+      <strong>El reloj tambien coordina comunicacion</strong>
+      <small>de esperar 1 segundo a leer sensores por I2C, SPI o UART</small>
       <span class="mcu-prepare-arrow">-&gt;</span>
-    </a>
+    </div>
   </div>
 </div>
 
 ---
+class: protocol-book-slide
+---
 
 <p class="eyebrow">Escena 14</p>
 
-# El LED no entiende código
+# I2C y UART: dos formas de ordenar una conversacion serial
 
-<div class="timeline compact">
-  <span>CPU ejecuta</span>
-  <span>registro de salida</span>
-  <span>GPIO cambia voltaje</span>
-  <span>LED prende</span>
-</div>
+<div class="book-protocol"><p class="book-def"><b>Protocolo de comunicacion.</b> Conjunto de reglas que indica como se representan los bits, que lineas fisicas se emplean, quien inicia la transmision y en que instante debe leerse cada senal electrica.</p><div class="book-panels"><section class="book-panel i2c-panel"><header><b>I2C</b><span>Inter-Integrated Circuit · sincrono</span></header><svg viewBox="0 0 520 205" role="img" aria-label="Bus I2C con SDA, SCL y multiples dispositivos direccionados"><rect class="chip master" x="18" y="76" width="82" height="58" rx="8"/><text x="59" y="100">Swan</text><text x="59" y="119">controlador</text><path class="bus sda" d="M112 82H488"/><path class="bus scl" d="M112 127H488"/><text class="wire-label" x="118" y="74">SDA datos</text><text class="wire-label" x="118" y="151">SCL reloj</text><g class="i2c-device d1"><path d="M192 82V45"/><path d="M192 127V45"/><rect class="chip" x="158" y="18" width="68" height="45" rx="7"/><text x="192" y="76">addr 0x40</text></g><g class="i2c-device d2"><path d="M306 82V45"/><path d="M306 127V45"/><rect class="chip" x="272" y="18" width="68" height="45" rx="7"/><text x="306" y="76">addr 0x64</text></g><g class="i2c-device d3"><path d="M420 82V45"/><path d="M420 127V45"/><rect class="chip" x="386" y="18" width="68" height="45" rx="7"/><text x="420" y="76">addr 0x81</text></g><circle class="pulse address-pulse" cx="192" cy="82" r="6"/><polyline class="clock-wave-svg" points="205,127 216,127 216,111 228,111 228,127 240,127 240,111 252,111 252,127 264,127 264,111 276,111 276,127 288,127 288,111 300,111 300,127"/><text class="caption" x="18" y="188">Un mismo bus puede conectar varios sensores; todos observan el bus, pero responde el dispositivo cuya direccion coincide.</text></svg></section><section class="book-panel uart-panel"><header><b>UART</b><span>Universal Asynchronous Receiver/Transmitter · asincrono</span></header><svg viewBox="0 0 520 205" role="img" aria-label="Comunicacion UART punto a punto con TX RX y trama asincrona"><rect class="chip master uart-chip" x="30" y="65" width="90" height="78" rx="8"/><text x="75" y="99">Swan</text><text x="75" y="119">UART</text><rect class="chip module" x="388" y="65" width="92" height="78" rx="8"/><text x="434" y="99">Modulo</text><text x="434" y="119">UART</text><path class="bus uart-tx" d="M128 82H380"/><path class="bus uart-rx" d="M380 128H128"/><text class="wire-label" x="132" y="74">TX → RX</text><text class="wire-label" x="300" y="150">RX ← TX</text><g class="uart-frame"><text x="176" y="38">trama: inicio · datos · parada</text><path d="M176 50h18v18h18V50h18v18h18V50h18v18h18V50h18v18h18"/></g><rect class="baud" x="183" y="158" width="154" height="25" rx="6"/><text x="260" y="175">baud rate comun</text><circle class="pulse uart-pulse" cx="220" cy="82" r="6"/><text class="caption" x="30" y="188">No viaja una linea de reloj. Cada extremo usa su propio reloj interno y ambos deben acordar la misma velocidad.</text></svg></section></div><div class="book-comparison"><b>Contraste principal</b><span>I2C organiza una conversacion de bus: pocos cables, varios dispositivos y direcciones. UART organiza una conversacion punto a punto: menos estructura de bus, pero mayor dependencia de que ambos extremos conserven el mismo ritmo temporal.</span></div></div>
 
-```cpp
-pinMode(LED_BUILTIN, OUTPUT);
-digitalWrite(LED_BUILTIN, HIGH);
-```
+---
+class: swan-pins-book-slide
+---
 
-<a href="../actividades/tiempo-dentro-del-chip" target="_top" class="quiet-link">Actividad: algoritmo, memoria y LED</a>
+<p class="eyebrow">Escena 14B</p>
+
+# Pines de la Swan: GPIO y funciones de comunicacion
+
+<div class="swan-pin-book"><figure><img src="./assets/imagenes/swan-pinout-feather-v3.png" alt="Pinout oficial de Blues Swan v3.0 en formato Feather" /><figcaption>Pinout oficial Blues Swan v3.0</figcaption></figure><div class="pin-book-copy"><p><b>GPIO</b> significa entrada/salida de proposito general. Un pin configurado como GPIO permite que el programa lea un nivel logico o produzca un voltaje digital. Cuando el pin se asigna a un periferico interno, la misma terminal fisica puede convertirse en parte de un protocolo de comunicacion.</p><div class="pin-book-table"><div><b>Uso general</b><span>D5, D6, D9, D10...</span><small>LED, boton, salida digital, lectura HIGH/LOW.</small></div><div><b>I2C</b><span>SDA + SCL</span><small>Bus sincrono para multiples sensores con direccion.</small></div><div><b>UART</b><span>TX + RX</span><small>Enlace asincrono entre dos extremos con velocidad acordada.</small></div><div><b>SPI</b><span>SCK + MOSI + MISO + CS</span><small>Bus sincrono rapido; el pin CS selecciona el dispositivo activo.</small></div></div><a href="../actividades/hola-mundo" target="_top" class="mcu-prepare-link pin-activity-link" aria-label="Ir a la Actividad 2 Leer SEN55 por I2C"><span class="mcu-prepare-kicker">Siguiente actividad</span><strong>Actividad 2: leer SEN55 por I2C</strong><small>usar SDA y SCL para obtener particulas, temperatura, humedad, VOC y NOx</small><span class="mcu-prepare-arrow">-&gt;</span></a></div></div>
 
 ---
 

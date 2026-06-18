@@ -32,7 +32,7 @@ sensores, visualizacion local y comunicacion.
 - [Presentacion visual de la sesion 2](/slides/)
 - [Antes de empezar](./antes-de-empezar)
 - [Actividad: algoritmo, memoria y tiempo visible](./tiempo-dentro-del-chip)
-- [Actividad: Hola mundo](./hola-mundo)
+- [Actividad: leer SEN55 por I2C](./hola-mundo)
 - [Actividad: sensor simulado](./sensor-simulado)
 - [Actividad: medir CO2](./medir-co2)
 - [Actividad: medir particulas](./medir-particulas)

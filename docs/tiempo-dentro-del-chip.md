@@ -277,4 +277,4 @@ El LED parece simple, pero revela mucho: memoria de programa, flujo de control,
 GPIO, temporizadores, ciclos de reloj y la diferencia entre esperar con una base
 de tiempo y esperar gastando ciclos de CPU.
 
-<a href="./hola-mundo" class="button button--primary">Continuar a Actividad 2: hola mundo</a>
+<a href="./hola-mundo" class="button button--primary">Continuar a Actividad 2: leer SEN55 por I2C</a>

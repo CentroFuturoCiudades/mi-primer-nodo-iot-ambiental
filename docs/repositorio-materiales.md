@@ -25,15 +25,16 @@ Material disponible:
 - [Guia y materiales de la sesion 2](./sesion-2#materiales-principales)
 - [Preparacion de Arduino y Blues Swan](./antes-de-empezar)
 - [Actividad: algoritmo, memoria y tiempo visible](./tiempo-dentro-del-chip)
-- [Actividad: Hola mundo](./hola-mundo)
+- [Actividad: leer SEN55 por I2C](./hola-mundo)
 - [Actividad: sensor simulado](./sensor-simulado)
 - [Actividad: medir CO2](./medir-co2)
 - [Actividad: medir particulas](./medir-particulas)
 
 Codigos:
 
-- [`01_hola_mundo.ino`](/codigos/01_hola_mundo/01_hola_mundo.ino)
-- [`02_primer_parpadeo.ino`](/codigos/02_primer_parpadeo/02_primer_parpadeo.ino)
+- <a href="../codigos/01_hola_mundo/01_hola_mundo.ino">01_hola_mundo.ino</a>
+- <a href="../codigos/02_primer_parpadeo/02_primer_parpadeo.ino">02_primer_parpadeo.ino</a>
+- <a href="../codigos/02_sen55_i2c/02_sen55_i2c.ino">02_sen55_i2c.ino</a>
 
 ## Sesion 3: Procesar informacion y visualizar {#sesion-3}
 

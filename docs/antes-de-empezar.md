@@ -1,6 +1,7 @@
 ---
 title: Antes de empezar
 pagination_next: null
+pagination_prev: null
 ---
 
 # Antes de empezar
@@ -176,3 +177,10 @@ Durante el taller usaremos palabras sencillas:
 - [Blues Swan Quickstart](https://dev.blues.io/quickstart/swan-quickstart/)
 - [Arduino IDE](https://www.arduino.cc/en/software/)
 - [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html)
+
+<nav class="pagination-nav" aria-label="Siguiente paso">
+  <a class="pagination-nav__link pagination-nav__link--next" href="./tiempo-dentro-del-chip">
+    <div class="pagination-nav__sublabel">Siguiente</div>
+    <div class="pagination-nav__label">Actividad 1: entender el programa</div>
+  </a>
+</nav>
