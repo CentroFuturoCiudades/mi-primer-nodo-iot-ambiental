@@ -7,19 +7,111 @@
   --ifm-color-primary-lighter: #4db6ac;
   --ifm-color-primary-lightest: #80cbc4;
 
-  --course-teal: #00897b;
+  --course-teal: #1188a0;
   --course-dark: #062b27;
   --course-amber: #f5b041;
   --course-soft: #f2fbf9;
 }
 
+.homeCover {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  color: #0b0d0e;
+}
+
+.homeCoverInner {
+  position: relative;
+  display: grid;
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  grid-template-rows: auto 1fr auto;
+  gap: 1.2rem;
+  width: min(100%, 1380px);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 0;
+}
+
+.coverTopLogos {
+  width: min(100%, 430px);
+  height: auto;
+  justify-self: center;
+}
+
+.coverMain {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.coverText {
+  max-width: 840px;
+}
+
+.coverKicker {
+  color: #0b0d0e;
+  font-size: clamp(2.1rem, 5vw, 4.3rem);
+  font-weight: 950;
+  line-height: 1;
+  margin: 0 0 0.4rem;
+}
+
+.coverText h1 {
+  color: var(--course-teal);
+  font-size: clamp(3rem, 7.6vw, 7.8rem);
+  font-weight: 950;
+  line-height: 1.04;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.coverMeta {
+  color: #0b0d0e;
+  font-size: clamp(1.35rem, 2.8vw, 2.7rem);
+  font-weight: 850;
+  line-height: 1.15;
+  margin: 1.4rem 0 0;
+}
+
+.coverDescription {
+  max-width: 700px;
+  color: #394442;
+  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+  line-height: 1.65;
+  margin: 1rem 0 0;
+}
+
+.coverPhoto {
+  position: relative;
+  min-height: clamp(360px, 47vw, 650px);
+  margin: 0;
+  overflow: hidden;
+  clip-path: polygon(9% 5%, 100% 0, 94% 82%, 62% 100%, 0 86%, 4% 32%);
+  background: #eaf7f4;
+}
+
+.coverPhoto img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.coverInstitutionLogos {
+  width: min(100%, 1180px);
+  height: auto;
+  align-self: end;
+  justify-self: center;
+  display: block;
+}
+
 .heroSection {
-  min-height: 76vh;
+  min-height: 68vh;
   display: flex;
   align-items: center;
   background:
-    radial-gradient(circle at 85% 20%, rgba(245, 176, 65, 0.22), transparent 28%),
-    radial-gradient(circle at 15% 10%, rgba(0, 137, 123, 0.28), transparent 30%),
     linear-gradient(135deg, #061716, #073b35 55%, #0a1f1e);
   color: white;
   padding: 5rem 1.5rem;
@@ -35,14 +127,14 @@
   color: var(--course-amber);
   text-transform: uppercase;
   font-weight: 900;
-  letter-spacing: 0.14em;
+  letter-spacing: 0;
   font-size: 0.9rem;
 }
 
 .heroSection h1 {
   font-size: clamp(3rem, 8vw, 6.5rem);
   line-height: 0.96;
-  letter-spacing: -0.06em;
+  letter-spacing: 0;
   max-width: 900px;
   margin: 1rem 0;
 }
@@ -63,9 +155,11 @@
 
 .mainButton,
 .secondaryButton,
+.outlineButton,
+.resourceButton,
 .activityButton {
   display: inline-block;
-  border-radius: 999px;
+  border-radius: 8px;
   font-weight: 900;
   text-decoration: none !important;
 }
@@ -82,6 +176,12 @@
   padding: 0.78rem 1.15rem;
 }
 
+.outlineButton {
+  border: 2px solid var(--course-teal);
+  color: var(--course-teal) !important;
+  padding: 0.78rem 1.15rem;
+}
+
 .pageSection {
   max-width: 1050px;
   margin: 0 auto;
@@ -90,8 +190,26 @@
 
 .pageSection h2 {
   font-size: clamp(2rem, 4vw, 3rem);
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   margin-bottom: 1.5rem;
+}
+
+.sectionIntro {
+  max-width: 860px;
+  margin-bottom: 1.5rem;
+}
+
+.sectionIntro p {
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.sectionKicker {
+  color: var(--course-teal);
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0;
+  margin-bottom: 0.4rem;
 }
 
 .coursePath {
@@ -105,7 +223,7 @@
   min-width: 105px;
   text-align: center;
   padding: 1rem 0.8rem;
-  border-radius: 1.2rem;
+  border-radius: 8px;
   background: rgba(0, 137, 123, 0.08);
   border: 1px solid rgba(0, 137, 123, 0.16);
 }
@@ -115,7 +233,7 @@
   place-items: center;
   width: 2.1rem;
   height: 2.1rem;
-  border-radius: 999px;
+  border-radius: 8px;
   background: var(--course-teal);
   color: white;
   font-weight: 900;
@@ -140,9 +258,96 @@
   gap: 1.2rem;
 }
 
+.sessionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.sessionCard {
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  padding: 1.35rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+}
+
+.sessionCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sessionNumber,
+.sessionStatus,
+.sessionFocus span {
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.38rem 0.55rem;
+}
+
+.sessionNumber {
+  color: white;
+  background: var(--course-teal);
+}
+
+.sessionStatus {
+  color: #5f3c00;
+  background: rgba(245, 176, 65, 0.22);
+}
+
+.sessionDate {
+  color: #51615f;
+  font-weight: 800;
+  margin: 1rem 0 0.35rem;
+}
+
+.sessionCard h3 {
+  color: var(--course-dark);
+  font-size: 1.6rem;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.sessionSubtitle {
+  color: var(--course-teal);
+  font-weight: 900;
+  margin: 0.35rem 0 0.75rem;
+}
+
+.sessionCard p {
+  line-height: 1.58;
+}
+
+.sessionFocus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.sessionFocus span {
+  color: #173532;
+  background: rgba(0, 137, 123, 0.1);
+}
+
+.sessionActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
 .activityCard {
   padding: 1.5rem;
-  border-radius: 1.4rem;
+  border-radius: 8px;
   background: white;
   border: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 14px 36px rgba(0,0,0,0.07);
@@ -164,7 +369,7 @@
 .activityNumber {
   color: var(--course-teal);
   background: rgba(0, 137, 123, 0.10);
-  border-radius: 999px;
+  border-radius: 8px;
   font-weight: 900;
   padding: 0.28rem 0.7rem;
 }
@@ -172,7 +377,7 @@
 .activityTag {
   color: #7a4b00;
   background: rgba(245, 176, 65, 0.18);
-  border-radius: 999px;
+  border-radius: 8px;
   font-weight: 900;
   padding: 0.28rem 0.7rem;
   font-size: 0.85rem;
@@ -195,6 +400,12 @@
   padding: 0.72rem 1.05rem;
 }
 
+.resourceButton {
+  border: 2px solid var(--course-teal);
+  color: var(--course-teal) !important;
+  padding: 0.6rem 0.95rem;
+}
+
 .stepGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(130px, 1fr));
@@ -204,7 +415,7 @@
 .stepCard {
   background: rgba(245, 176, 65, 0.13);
   border: 1px solid rgba(245, 176, 65, 0.28);
-  border-radius: 1.2rem;
+  border-radius: 8px;
   padding: 1rem;
 }
 
@@ -216,7 +427,7 @@
 .importantBox {
   margin-top: 2rem;
   padding: 1.2rem;
-  border-radius: 1.1rem;
+  border-radius: 8px;
   background: rgba(0, 137, 123, 0.08);
   border: 1px solid rgba(0, 137, 123, 0.25);
 }
@@ -230,7 +441,14 @@ html[data-theme='dark'] .activityCard {
   border-color: rgba(255,255,255,0.12);
 }
 
+html[data-theme='dark'] .sessionCard,
+html[data-theme='dark'] .repoItem {
+  background: #151f1f;
+  border-color: rgba(255,255,255,0.12);
+}
+
 html[data-theme='dark'] .activityCard h3,
+html[data-theme='dark'] .sessionCard h3,
 html[data-theme='dark'] .pathItem p {
   color: #80cbc4;
 }
@@ -243,8 +461,103 @@ html[data-theme='dark'] .stepCard {
   background: rgba(245, 176, 65, 0.12);
 }
 
+.bandSection {
+  max-width: 100%;
+  background: var(--course-soft);
+}
+
+.bandSection > * {
+  max-width: 1050px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.repoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+.repoItem {
+  display: flex;
+  min-height: 150px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.2rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background: white;
+  color: inherit;
+  text-decoration: none !important;
+}
+
+.repoItem strong {
+  color: var(--course-dark);
+  font-size: 1.15rem;
+}
+
+.repoItem span {
+  line-height: 1.5;
+}
+
+.sessionsHero {
+  background: #062b27;
+  color: white;
+  padding: 4rem 1.5rem;
+}
+
+.sessionsHero > div {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.sessionsHero h1 {
+  font-size: clamp(2.7rem, 7vw, 5.4rem);
+  line-height: 1;
+  letter-spacing: 0;
+  margin: 0.7rem 0 1rem;
+}
+
+.sessionsHero p:not(.heroKicker) {
+  max-width: 780px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.18rem;
+  line-height: 1.6;
+}
+
+.darkTextButton {
+  color: #201200 !important;
+}
+
 @media (max-width: 850px) {
-  .activityGrid {
+  .homeCoverInner {
+    min-height: auto;
+    padding-top: 1.4rem;
+  }
+
+  .coverTopLogos {
+    width: min(100%, 330px);
+  }
+
+  .coverMain {
+    grid-template-columns: 1fr;
+  }
+
+  .coverText h1 {
+    font-size: clamp(2.75rem, 13vw, 5rem);
+  }
+
+  .coverPhoto {
+    min-height: 380px;
+  }
+
+  .coverInstitutionLogos {
+    width: min(100%, 760px);
+  }
+
+  .activityGrid,
+  .sessionGrid,
+  .repoGrid {
     grid-template-columns: 1fr;
   }
 
@@ -278,7 +591,7 @@ html[data-theme='dark'] .stepCard {
 
 .slidesHeader h1 {
   font-size: clamp(2.4rem, 6vw, 4.5rem);
-  letter-spacing: -0.06em;
+  letter-spacing: 0;
   line-height: 1;
 }
 
@@ -298,7 +611,7 @@ html[data-theme='dark'] .stepCard {
 .slidesFullButton {
   display: inline-block;
   border: 0;
-  border-radius: 999px;
+  border-radius: 8px;
   background: #f5b041;
   color: #201200 !important;
   padding: 0.8rem 1.15rem;
@@ -310,7 +623,7 @@ html[data-theme='dark'] .stepCard {
 
 .slidesSecondaryButton {
   display: inline-block;
-  border-radius: 999px;
+  border-radius: 8px;
   border: 2px solid #00897b;
   color: #00897b !important;
   padding: 0.68rem 1.05rem;
@@ -358,7 +671,7 @@ html[data-theme='dark'] .stepCard {
 
 .slidesHeader h1 {
   font-size: clamp(2.4rem, 6vw, 4.5rem);
-  letter-spacing: -0.06em;
+  letter-spacing: 0;
   line-height: 1;
 }
 
@@ -378,7 +691,7 @@ html[data-theme='dark'] .stepCard {
 .slidesFullButton {
   display: inline-block;
   border: 0;
-  border-radius: 999px;
+  border-radius: 8px;
   background: #f5b041;
   color: #201200 !important;
   padding: 0.8rem 1.15rem;
@@ -390,7 +703,7 @@ html[data-theme='dark'] .stepCard {
 
 .slidesSecondaryButton {
   display: inline-block;
-  border-radius: 999px;
+  border-radius: 8px;
   border: 2px solid #00897b;
   color: #00897b !important;
   padding: 0.68rem 1.05rem;

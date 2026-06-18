@@ -1,8 +1,8 @@
 // @ts-check
 
 const config = {
-  title: 'Mi primer nodo IoT ambiental',
-  tagline: 'De la arena al sensor inteligente',
+  title: 'Ciencia, tecnologia y arte para el cuidado del Arroyo Vivo',
+  tagline: 'Taller Arroyo Vivo',
   favicon: 'img/favicon.ico',
 
   // Cambia estos datos cuando publiques en GitHub Pages.
@@ -37,16 +37,10 @@ const config = {
 
   themeConfig: {
     navbar: {
-      title: 'Mi primer nodo IoT ambiental',
       items: [
         {
           to: '/',
           label: 'Inicio',
-          position: 'left',
-        },
-        {
-          to: '/slides/',
-          label: 'Historia visual',
           position: 'left',
         },
         {
@@ -71,10 +65,6 @@ const config = {
             {
               label: 'Inicio',
               to: '/',
-            },
-            {
-              label: 'Historia visual',
-              to: '/slides/',
             },
             {
               label: 'Actividades',

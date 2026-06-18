@@ -2,12 +2,23 @@ const sidebars = {
   tutorialSidebar: [
     {
       type: 'category',
-      label: 'Antes de empezar',
+      label: 'Taller completo',
+      items: [
+        'repositorio-materiales',
+        'sesion-1',
+        'sesion-2',
+        'sesion-3',
+        'sesion-4',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Preparacion',
       items: ['antes-de-empezar'],
     },
     {
       type: 'category',
-      label: 'Actividades',
+      label: 'Actividades tecnicas',
       items: [
         'tiempo-dentro-del-chip',
         'hola-mundo',

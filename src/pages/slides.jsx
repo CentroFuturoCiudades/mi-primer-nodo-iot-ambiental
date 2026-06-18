@@ -55,20 +55,19 @@ export default function SlidesPage() {
 
   return (
     <Layout
-      title="Historia visual"
-      description="Presentación visual del taller Mi primer nodo IoT ambiental"
+      title="Presentacion sesion 2"
+      description="Presentacion de apoyo para la sesion 2 del taller Mi primer nodo IoT ambiental"
     >
       <main className="slidesPage">
         <section className="slidesHeader">
-          <p className="heroKicker">Historia visual</p>
+          <p className="heroKicker">Sesion 2 · Medir el entorno</p>
 
-          <h1>De la arena al sensor inteligente</h1>
+          <h1>Presentacion: del chip al nodo ambiental</h1>
 
           <p>
-            Esta historia visual sirve como apoyo para explicar, de forma
-            sencilla, cómo pasamos de la materia y los transistores a un
-            microcontrolador capaz de ejecutar código, controlar un LED y leer
-            sensores ambientales.
+            Material visual de apoyo para explicar como un microcontrolador
+            ejecuta codigo, controla salidas, se comunica con sensores y permite
+            construir un nodo IoT ambiental.
           </p>
 
           <div className="slidesActions">
@@ -82,9 +81,9 @@ export default function SlidesPage() {
 
             <Link
               className="slidesSecondaryButton"
-              to="/actividades/antes-de-empezar"
+              to="/sesiones/"
             >
-              Ir a actividades
+              Volver a sesiones
             </Link>
           </div>
         </section>
@@ -94,7 +93,7 @@ export default function SlidesPage() {
             ref={iframeRef}
             className="slidesFrame"
             src={presentacionUrl}
-            title="Historia visual del taller"
+            title="Presentacion de la sesion 2 del taller"
             onLoad={handleFrameLoad}
             allowFullScreen
           />
