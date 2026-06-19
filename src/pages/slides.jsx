@@ -55,19 +55,22 @@ export default function SlidesPage() {
 
   return (
     <Layout
-      title="Presentacion sesion 2"
-      description="Presentacion de apoyo para la sesion 2 del taller Mi primer nodo IoT ambiental"
+      title="Presentación sesión 2 · Tecnología para medir el entorno"
+      description="Presentación de apoyo para la sesión 2: Tecnología para medir el entorno del taller Mi primer nodo IoT ambiental"
     >
       <main className="slidesPage">
         <section className="slidesHeader">
-          <p className="heroKicker">Sesion 2 · Medir el entorno</p>
+          <p className="heroKicker">Sesión 2 · Tecnología para medir el entorno</p>
 
-          <h1>Presentacion: del chip al nodo ambiental</h1>
+          <h1>Presentación: Tecnología para medir el entorno</h1>
 
           <p>
-            Material visual de apoyo para explicar como un microcontrolador
-            ejecuta codigo, controla salidas, se comunica con sensores y permite
+            Material visual de apoyo para explicar cómo un microcontrolador
+            ejecuta código, controla salidas, se comunica con sensores y permite
             construir un nodo IoT ambiental.
+          </p>
+          <p>
+            <strong>Estamos en la sesión 2: Tecnología para medir el entorno.</strong>
           </p>
 
           <div className="slidesActions">
@@ -93,7 +96,7 @@ export default function SlidesPage() {
             ref={iframeRef}
             className="slidesFrame"
             src={presentacionUrl}
-            title="Presentacion de la sesion 2 del taller"
+            title="Presentación de la sesión 2 del taller"
             onLoad={handleFrameLoad}
             allowFullScreen
           />

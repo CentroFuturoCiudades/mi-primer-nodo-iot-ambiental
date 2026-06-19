@@ -8,16 +8,17 @@ export default function SessionsPage() {
   return (
     <Layout
       title="Sesiones"
-      description="Sesiones del taller Ciencia, tecnologia y arte para el cuidado del Arroyo Vivo"
+      description="Guía académica de sesiones del taller Ciencia, tecnología y arte para el cuidado del Arroyo Vivo"
     >
       <main>
         <section className="sessionsHero">
           <div>
-            <p className="heroKicker">Ruta completa</p>
-            <h1>Sesiones y materiales</h1>
+            <p className="heroKicker">Guía académica</p>
+            <h1>Sesiones, recursos y productos</h1>
             <p>
-              Aqui se concentran las guias, presentaciones, codigos y productos
-              esperados de cada encuentro.
+              Esta sección organiza la ruta de trabajo del taller: objetivos,
+              materiales de consulta, prácticas y productos esperados de cada
+              encuentro.
             </p>
           </div>
         </section>

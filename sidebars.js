@@ -2,7 +2,7 @@ const sidebars = {
   tutorialSidebar: [
     {
       type: 'category',
-      label: 'Taller completo',
+      label: 'Guía del taller',
       items: [
         'repositorio-materiales',
         'sesion-1',
@@ -13,23 +13,21 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Preparacion',
+      label: 'Preparación del entorno',
       items: ['antes-de-empezar'],
     },
     {
       type: 'category',
-      label: 'Actividades tecnicas',
+      label: 'Prácticas de laboratorio',
       items: [
         'tiempo-dentro-del-chip',
         'hola-mundo',
         'sensor-simulado',
-        'medir-co2',
-        'medir-particulas',
       ],
     },
     {
       type: 'category',
-      label: 'Apoyo',
+      label: 'Soporte',
       items: ['ayuda'],
     },
   ],

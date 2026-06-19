@@ -13,7 +13,7 @@ export default function ActivityCard({number, tag, title, description, to}) {
       <p>{description}</p>
 
       <Link className="activityButton" to={to}>
-        Abrir actividad
+        Consultar actividad
       </Link>
     </div>
   );

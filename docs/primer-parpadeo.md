@@ -1,12 +1,14 @@
 ---
-title: Primer parpadeo
+title: "Referencia: primer parpadeo"
 ---
 
-# Primer parpadeo
+# Referencia: primer parpadeo
 
-Esta actividad quedó integrada en una sola práctica más completa:
+El primer parpadeo del LED quedó integrado en una actividad más completa sobre
+programa, memoria y tiempo de ejecución:
 
-<a href="./tiempo-dentro-del-chip" class="button button--primary">Abrir actividad: algoritmo, memoria y tiempo visible</a>
+<a href="./tiempo-dentro-del-chip" class="button button--primary">Abrir actividad: fundamentos de programa, memoria y tiempo</a>
 
-Ahí encontrarás el parpadeo base, señales creativas con LED, cambios de tiempo,
-ciclo de trabajo y un reto de retardo manual.
+Ahí se estudia el parpadeo base, la construcción de señales con LED, la
+modificación de tiempos y el uso de condiciones para controlar el flujo del
+programa.

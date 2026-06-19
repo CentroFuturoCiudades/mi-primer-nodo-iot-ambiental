@@ -5,7 +5,7 @@ export default function SessionCard({session}) {
   return (
     <article className="sessionCard">
       <div className="sessionCardTop">
-        <span className="sessionNumber">Sesion {session.number}</span>
+        <span className="sessionNumber">Sesión {session.number}</span>
         <span className="sessionStatus">{session.status}</span>
       </div>
 
@@ -14,7 +14,7 @@ export default function SessionCard({session}) {
       <p className="sessionSubtitle">{session.subtitle}</p>
       <p>{session.description}</p>
 
-      <div className="sessionFocus" aria-label="Temas de la sesion">
+      <div className="sessionFocus" aria-label="Temas de la sesión">
         {session.focus.map((item) => (
           <span key={item}>{item}</span>
         ))}
@@ -22,7 +22,7 @@ export default function SessionCard({session}) {
 
       <div className="sessionActions">
         <Link className="activityButton" to={session.docsTo}>
-          Ver guia
+          Ver guía
         </Link>
         <Link className="resourceButton" to={session.materialsTo}>
           Materiales

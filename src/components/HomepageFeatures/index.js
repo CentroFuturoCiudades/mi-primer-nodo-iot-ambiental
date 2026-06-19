@@ -4,32 +4,32 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
+    title: 'Ruta de aprendizaje',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        El material avanza de la observación del arroyo hacia la construcción e
+        interpretación de un nodo ambiental.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Prácticas guiadas',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Cada práctica introduce un concepto técnico y lo relaciona con una
+        medición observable del entorno.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Evidencia y comunicación',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Los datos registrados se organizan para construir visualizaciones,
+        argumentos y propuestas sustentadas.
       </>
     ),
   },

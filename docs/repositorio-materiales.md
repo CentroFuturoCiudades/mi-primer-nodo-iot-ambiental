@@ -4,48 +4,49 @@ title: Materiales del taller
 
 # Materiales del taller
 
-Aqui se concentran las presentaciones, codigos, guias y recursos de apoyo de
-las cuatro sesiones del taller.
+Esta sección reúne los recursos académicos disponibles para cada sesión:
+presentaciones, guías de trabajo, prácticas de laboratorio y materiales de
+consulta.
 
-## Sesion 1: Entender el arroyo {#sesion-1}
+## Sesión 1: Entender el arroyo {#sesion-1}
 
 Fecha: **13 de junio de 2026**
 
 Material disponible:
 
-- [Presentacion: AV Taller CBTis Sesion 1](/materiales/sesion-01/av-taller-cbtis-sesion-1.pdf)
-- [Presentacion: Observacion medioambiental y bitacora](/materiales/sesion-01/observacion-medioambiental-taller-cbtis.pdf)
+- [Presentación: AV Taller CBTis Sesión 1](/materiales/sesion-01/av-taller-cbtis-sesion-1.pdf)
+- [Presentación: Observación medioambiental y bitácora](/materiales/sesion-01/observacion-medioambiental-taller-cbtis.pdf)
 
-## Sesion 2: Medir el entorno {#sesion-2}
+## Sesión 2: Medir el entorno {#sesion-2}
 
 Fecha: **20 de junio de 2026**
 
 Material disponible:
 
-- [Guia y materiales de la sesion 2](./sesion-2#materiales-principales)
-- [Preparacion de Arduino y Blues Swan](./antes-de-empezar)
-- [Actividad: algoritmo, memoria y tiempo visible](./tiempo-dentro-del-chip)
-- [Actividad: leer SEN55 por I2C](./hola-mundo)
-- [Actividad: sensor simulado](./sensor-simulado)
-- [Actividad: medir CO2](./medir-co2)
-- [Actividad: medir particulas](./medir-particulas)
+- [Guía y materiales de la sesión 2](./sesion-2#materiales-principales)
+- [Preparación de Arduino y Blues Swan](./antes-de-empezar)
+- [Actividad 1: Controlar un LED / Mi primer programa](./tiempo-dentro-del-chip)
+- [Actividad 2: Lectura de mediciones del sensor](./hola-mundo)
+- [Actividad 3: Comunicar mediciones del sensor por LoRa](./sensor-simulado)
 
-Codigos:
+Programas de referencia:
 
-- <a href="../codigos/01_hola_mundo/01_hola_mundo.ino">01_hola_mundo.ino</a>
-- <a href="../codigos/02_primer_parpadeo/02_primer_parpadeo.ino">02_primer_parpadeo.ino</a>
-- <a href="../codigos/02_sen55_i2c/02_sen55_i2c.ino">02_sen55_i2c.ino</a>
+- <a href="../codigos/01_hola_mundo/01_hola_mundo.ino">Prueba inicial de la tarjeta</a>
+- <a href="../codigos/02_primer_parpadeo/02_primer_parpadeo.ino">Señal visible con LED</a>
+- <a href="../codigos/02_sen55_i2c/02_sen55_i2c.ino">Lectura ambiental con SEN55 por I2C</a>
+- <a href="../codigos/03_notecard_lora_quick_test/03_notecard_lora_quick_test.ino">Prueba de comunicación con datos simulados</a>
+- <a href="../codigos/03_firmware_final/NEU_Weather_Solar_V1_1.ino">Firmware final del nodo ambiental</a>
 
-## Sesion 3: Procesar informacion y visualizar {#sesion-3}
+## Sesión 3: Procesar información y visualizar {#sesion-3}
 
 Fecha: **27 de junio de 2026**
 
-En esta sesion se trabaja con mediciones, tablas, comparaciones entre equipos y
+En esta sesión se trabaja con mediciones, tablas, comparaciones entre equipos y
 visualizaciones.
 
-## Sesion 4: Reflexionar y accionar {#sesion-4}
+## Sesión 4: Reflexionar y accionar {#sesion-4}
 
 Fecha: **4 de julio de 2026**
 
-En esta sesion los equipos preparan sus resultados, propuestas y presentacion
+En esta sesión los equipos preparan sus resultados, propuestas y presentación
 final.

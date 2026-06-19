@@ -13,8 +13,8 @@ export default function Home() {
 
   return (
     <Layout
-      title="Ciencia, tecnologia y arte para el cuidado del Arroyo Vivo"
-      description="Taller Ciencia, tecnologia y arte para el cuidado del Arroyo Vivo"
+      title="Ciencia, Tecnología y Arte para el cuidado del Arroyo Vivo"
+      description="Taller Ciencia, tecnología y arte para el cuidado del Arroyo Vivo"
     >
       <main>
         <section className="homeCover">
@@ -30,28 +30,29 @@ export default function Home() {
                 <p className="coverKicker">Taller</p>
 
                 <h1>
-                  Ciencia, tecnologia y arte para el cuidado del Arroyo Vivo
+                  Ciencia, Tecnología y Arte para el cuidado del Arroyo Vivo
                 </h1>
 
                 <p className="coverMeta">
                   13 de junio al 4 de julio de 2026
                 </p>
 
-            <p className="coverDescription">
-                  Agendas, presentaciones, codigos, bitacoras y productos de
-                  las cuatro sesiones del taller.
+                <p className="coverDescription">
+                  Repositorio académico con agenda, presentaciones, prácticas
+                  de laboratorio, bitácoras y productos de aprendizaje de las
+                  cuatro sesiones.
                 </p>
 
                 <div className="heroActions">
                   <Link className="mainButton" to="/sesiones/">
-                    Ver sesiones
+                    Consultar sesiones
                   </Link>
 
                   <Link
                     className="outlineButton"
                     to="/actividades/repositorio-materiales"
                   >
-                    Materiales
+                    Recursos del taller
                   </Link>
                 </div>
               </div>
@@ -64,19 +65,20 @@ export default function Home() {
             <img
               className="coverInstitutionLogos"
               src={institutionLogos}
-              alt="Tecnologico de Monterrey, Centro para el Futuro de las Ciudades, MIT y Northeastern University"
+              alt="Tecnológico de Monterrey, Centro para el Futuro de las Ciudades, MIT y Northeastern University"
             />
           </div>
         </section>
 
         <section className="pageSection">
           <div className="sectionIntro">
-            <p className="sectionKicker">Programa completo</p>
-            <h2>Cuatro sesiones conectadas</h2>
+            <p className="sectionKicker">Ruta formativa</p>
+            <h2>Cuatro sesiones articuladas</h2>
             <p>
-              La sesion 1 abre el problema ambiental. La sesion 2 construye el
-              nodo de medicion. Las sesiones 3 y 4 cruzan esas dos piezas:
-              interpretar datos, visualizarlos y preparar propuestas.
+              La primera sesión define el problema ambiental y las preguntas de
+              observación. La segunda sesión introduce el nodo de medición. Las
+              sesiones tercera y cuarta integran ambas dimensiones: ordenar
+              datos, interpretarlos y formular propuestas sustentadas.
             </p>
           </div>
 
@@ -89,44 +91,44 @@ export default function Home() {
 
         <section className="pageSection bandSection">
           <div className="sectionIntro">
-            <p className="sectionKicker">Material disponible</p>
-            <h2>Recursos del taller</h2>
+            <p className="sectionKicker">Repositorio de consulta</p>
+            <h2>Material académico del taller</h2>
             <p>
-              Cada sesion concentra sus presentaciones, actividades y productos
-              esperados para que los equipos puedan consultar el material antes,
-              durante y despues del taller.
+              Cada sesión reúne sus presentaciones, prácticas, instrumentos de
+              registro y productos esperados. El material está organizado para
+              consulta previa, trabajo en aula y revisión posterior.
             </p>
           </div>
 
           <div className="repoGrid">
             <Link className="repoItem" to="/actividades/repositorio-materiales">
               <strong>Materiales del taller</strong>
-              <span>Presentaciones, hojas de trabajo, bitacoras y enlaces.</span>
+              <span>Presentaciones, hojas de trabajo, bitácoras y recursos de apoyo.</span>
             </Link>
 
             <Link className="repoItem" to="/actividades/sesion-2">
-              <strong>Actividades tecnicas</strong>
-              <span>Arduino, LED, serial, sensores, LoRa y mediciones.</span>
+              <strong>Prácticas de laboratorio</strong>
+              <span>Microcontrolador, señales digitales, sensores, comunicación y medición ambiental.</span>
             </Link>
 
             <Link className="repoItem" to="/actividades/sesion-3">
-              <strong>Datos y visualizacion</strong>
-              <span>Organizacion de mediciones, analisis y dashboard.</span>
+              <strong>Análisis de datos</strong>
+              <span>Organización de mediciones, interpretación comparativa y visualización.</span>
             </Link>
           </div>
         </section>
 
         <section className="pageSection">
-          <h2>Resultado del taller</h2>
+          <h2>Resultados de aprendizaje</h2>
 
-          <p>Al final podrás explicar con tus palabras:</p>
+          <p>Al finalizar el taller, cada equipo podrá explicar:</p>
 
           <ul>
-            <li>Que problema ambiental quieren observar y por que importa.</li>
-            <li>Como un nodo IoT mide variables del entorno.</li>
-            <li>Como registrar y comparar datos entre equipos.</li>
-            <li>Como transformar mediciones en visualizaciones comprensibles.</li>
-            <li>Como defender una propuesta basada en evidencia.</li>
+            <li>Qué problema ambiental desea observar y por qué es relevante.</li>
+            <li>Cómo un nodo IoT mide variables del entorno.</li>
+            <li>Cómo registrar, comparar e interpretar datos entre equipos.</li>
+            <li>Cómo transformar mediciones en visualizaciones comprensibles.</li>
+            <li>Cómo presentar una propuesta sustentada en evidencia.</li>
           </ul>
         </section>
       </main>

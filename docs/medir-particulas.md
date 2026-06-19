@@ -1,15 +1,19 @@
 ---
-title: 5. Medir partículas
+title: "Referencia: medición de partículas"
 ---
 
-# Actividad 5 — Medir partículas
+# Referencia: medición de partículas
 
-En esta actividad usaremos el sensor SEN55 para observar partículas en el aire.
+Esta página conserva una referencia breve para una práctica de observación de
+partículas suspendidas en el aire mediante el sensor **SEN55**.
 
-## Idea
+## Idea técnica
 
-Algunas partículas no se ven, pero pueden medirse.
+Algunas partículas no son visibles a simple vista, pero pueden estimarse con un
+sensor óptico y registrarse como concentraciones de material particulado.
 
-## Reto
+## Comparación sugerida
 
-Observa si el valor cambia cerca de polvo, movimiento o ventilación.
+Observa si la lectura cambia cerca de polvo, movimiento de personas o
+ventilación. Registra el contexto de la medición para interpretar el dato con
+mayor cuidado.

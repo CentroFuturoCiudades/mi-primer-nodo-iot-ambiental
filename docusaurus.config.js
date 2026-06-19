@@ -1,7 +1,7 @@
 // @ts-check
 
 const config = {
-  title: 'Ciencia, tecnologia y arte para el cuidado del Arroyo Vivo',
+  title: 'Ciencia, tecnología y arte para el cuidado del Arroyo Vivo',
   tagline: 'Taller Arroyo Vivo',
   favicon: 'img/favicon.ico',
 
@@ -45,12 +45,12 @@ const config = {
         },
         {
           to: '/actividades/antes-de-empezar',
-          label: 'Actividades',
+          label: 'Guía académica',
           position: 'left',
         },
         {
           to: '/actividades/ayuda',
-          label: 'Ayuda',
+          label: 'Soporte',
           position: 'left',
         },
       ],
@@ -67,7 +67,7 @@ const config = {
               to: '/',
             },
             {
-              label: 'Actividades',
+              label: 'Guía académica',
               to: '/actividades/antes-de-empezar',
             },
           ],

@@ -1,15 +1,18 @@
 ---
-title: 4. Medir CO₂
+title: "Referencia: medición de CO₂"
 ---
 
-# Actividad 4 — Medir CO₂
+# Referencia: medición de CO₂
 
-En esta actividad conectaremos el sensor SCD41 para medir CO₂, temperatura y humedad.
+Esta página conserva una referencia breve para una práctica posterior con el
+sensor **SCD41**, orientada a medir CO₂, temperatura y humedad.
 
-## Pregunta inicial
+## Pregunta de observación
 
-¿Qué crees que pasa con el CO₂ cuando varias personas se acercan al sensor?
+¿Cómo cambia la concentración de CO₂ cuando varias personas permanecen cerca
+del sensor?
 
-## Reto
+## Comparación sugerida
 
-Compara una medición cerca de personas y otra en un lugar más ventilado.
+Compara una medición en una zona ocupada por personas con otra medición en un
+lugar más ventilado. Registra también hora, ubicación y condiciones del entorno.

@@ -7,8 +7,8 @@ pagination_prev: null
 # Antes de empezar
 
 Antes de cargar el primer programa, deja lista tu computadora, Arduino IDE y la
-tarjeta **Blues Swan R5**. Esta página resume los pasos oficiales de Blues Swan
-Quickstart en español y los organiza como una lista de preparación para el
+tarjeta **Blues Swan R5**. Esta página resume la guía oficial de
+inicio rápido de Blues Swan y la organiza como una lista de preparación para el
 taller.
 
 ![Tarjeta Blues Swan](https://res.cloudinary.com/blues-wireless/image/fetch/f_auto%2Cc_limit%2Cw_640%2Cq_auto/https%3A//dev.blues.io/_next/static/media/swan-small.e6f51b50.png)
@@ -16,7 +16,7 @@ taller.
 ## Lo que necesitas
 
 - Una tarjeta **Blues Swan R5**.
-- Cable USB de datos, no solo de carga.
+- Cable USB de datos; no basta con un cable exclusivo para carga.
 - Arduino IDE instalado.
 - STM32CubeCLT instalado.
 - La tarjeta configurada en Arduino IDE.
@@ -31,7 +31,7 @@ cables sirven para cargar energía, pero no transfieren datos.
 
 Antes de trabajar con firmware en Arduino IDE, instala estas herramientas:
 
-| Herramienta | Para que sirve | Enlace |
+| Herramienta | Para qué sirve | Enlace |
 |---|---|---|
 | Arduino IDE | Es el programa donde escribirás y cargarás el código. | [Descargar Arduino IDE](https://www.arduino.cc/en/software/) |
 | STM32CubeCLT | Permite que Arduino IDE compile y cargue código en microcontroladores STM32, como la Swan. | [Descargar STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html) |
@@ -72,7 +72,7 @@ con Swan R5.
 
 ## 4. Selecciona la tarjeta Swan R5
 
-Con el paquete instalado, configura Arduino IDE asi:
+Con el paquete instalado, configura Arduino IDE así:
 
 1. Ve a **Tools > Board**.
 2. Selecciona **STM32 MCU based boards**.
@@ -118,8 +118,10 @@ STM32CubeProgrammer (DFU)
 5. Sin soltar **BOOT**, presiona y suelta **RESET**.
 6. Suelta **BOOT**.
 
-Esta secuencia hace que la Swan entre al bootloader. Debes repetirla cada vez
-que quieras cargar firmware nuevo a la tarjeta.
+Esta secuencia hace que la Swan entre al modo de arranque. Debes repetirla cada
+vez que quieras cargar firmware nuevo a la tarjeta.
+
+![Presiona BOOT y RESET para entrar en modo de arranque](/img/modo_arranque.gif)
 
 ## 7. Primer programa de prueba
 
@@ -153,23 +155,23 @@ Port: el COM que viste en Administrador de dispositivos
 ```
 
 5. Presiona **Upload**.
-6. Si la carga falla porque la tarjeta no está en modo bootloader, repite la
+6. Si la carga falla porque la tarjeta no está en modo de arranque, repite la
    secuencia **BOOT + RESET** y vuelve a presionar **Upload**.
 
-Si el LED de la Swan prende y apaga cada segundo, tu entorno está listo para el
+Si el LED de la Swan enciende y apaga cada segundo, tu entorno está listo para el
 taller.
 
 ## Lenguaje del taller
 
-Durante el taller usaremos palabras sencillas:
+Durante el taller se utilizarán los siguientes términos:
 
-| Palabra sencilla | Nombre técnico |
+| Expresión en clase | Nombre técnico |
 |---|---|
 | Tarjeta | Placa de desarrollo |
-| Código | Sketch o programa |
-| Monitor de mensajes | Serial Monitor |
-| Patita de entrada/salida | GPIO |
-| Cargar programa | Upload |
+| Código | Programa |
+| Monitor de mensajes | Monitor serial |
+| Terminal de entrada/salida | GPIO |
+| Cargar programa | Upload, en la interfaz de Arduino IDE |
 | Programa de la tarjeta | Firmware |
 
 ## Fuentes
@@ -179,8 +181,8 @@ Durante el taller usaremos palabras sencillas:
 - [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html)
 
 <nav class="pagination-nav" aria-label="Siguiente paso">
-  <a class="pagination-nav__link pagination-nav__link--next" href="./tiempo-dentro-del-chip">
+  <a class="pagination-nav__link pagination-nav__link--next" href="../slides/?slide=8">
     <div class="pagination-nav__sublabel">Siguiente</div>
-    <div class="pagination-nav__label">Actividad 1: entender el programa</div>
+    <div class="pagination-nav__label">Comprender el programa del LED</div>
   </a>
 </nav>

@@ -2,20 +2,20 @@ import React from 'react';
 
 const steps = [
   {
-    title: '1. Entender',
-    text: 'Primero explicamos la idea con dibujos, ejemplos y preguntas.',
+    title: '1. Comprender',
+    text: 'Primero se establece el concepto técnico mediante esquemas, ejemplos y preguntas de observación.',
   },
   {
-    title: '2. Probar',
-    text: 'Después cargamos un código pequeño en la tarjeta.',
+    title: '2. Verificar',
+    text: 'Después se carga un programa breve en la tarjeta para observar un comportamiento controlado.',
   },
   {
-    title: '3. Cambiar',
-    text: 'Luego modificamos el código para ver qué ocurre.',
+    title: '3. Modificar',
+    text: 'Luego se modifica el código para comparar el efecto de cada decisión de programación.',
   },
   {
     title: '4. Reflexionar',
-    text: 'Al final conectamos lo que pasó con el funcionamiento del chip.',
+    text: 'Finalmente se relaciona la observación experimental con el funcionamiento interno del microcontrolador.',
   },
 ];
 

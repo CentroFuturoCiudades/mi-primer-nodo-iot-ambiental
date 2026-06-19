@@ -1,305 +1,184 @@
 ---
-title: 2. Leer SEN55 por I2C
+title: 2. Lectura de mediciones del sensor
+pagination_next: null
+pagination_prev: null
 ---
 
-# Actividad 2 - Leer SEN55 por I2C
+# Actividad 2 - Lectura de mediciones del sensor
 
-En esta practica vas a conectar la **Blues Swan R5** con el sensor **SEN55**
-por I2C. El objetivo es aislar una sola parte del nodo ambiental:
+En esta actividad se lee el sensor **SEN55** desde la **Blues Swan R5**. El
+propósito es vincular los conceptos de I2C y GPIO revisados en la presentación
+con un programa real de medición ambiental:
 
 ```text
-Swan MCU -> I2C -> SEN55 -> Serial Monitor
+Swan -> SDA/SCL -> SEN55 -> monitor serial
 ```
 
-Todavia no usaremos Notecard, LoRa, SCD41 ni almacenamiento de datos. Primero
-queremos comprobar que el microcontrolador puede iniciar el bus I2C, reconocer
-el sensor y mostrar mediciones en la computadora.
+En esta etapa no se utiliza Notecard ni LoRa. Primero se verifica que la Swan
+puede iniciar el bus I2C, comunicarse con el sensor y convertir la respuesta en
+variables del programa.
 
 ## Objetivo
 
-Leer por I2C las variables principales del SEN55:
+Identificar en el código los siguientes elementos:
 
-| Variable | Que representa |
+| Elemento | Función |
 |---|---|
-| PM1.0, PM2.5, PM4.0, PM10 | Particulas suspendidas en el aire |
-| Temperatura | Temperatura del aire cerca del sensor |
-| Humedad | Humedad relativa |
-| VOC Index | Indicador de compuestos organicos volatiles |
-| NOx Index | Indicador de oxidos de nitrogeno |
+| `Wire.begin()` | inicia el bus I2C |
+| `sen5x.begin(Wire)` | conecta la biblioteca del sensor al bus |
+| `startMeasurement()` | pide iniciar una medición |
+| `readMeasuredValues(...)` | llena variables con datos del sensor |
+| `if (error)` | decide qué hacer si la comunicación falla |
 
 ## Material
 
 - Blues Swan R5 configurada.
 - Sensor SEN55 o SEN5x compatible.
-- Cables para I2C y alimentacion.
+- Cables para alimentación, `SDA`, `SCL` y `GND`.
 - Arduino IDE.
-- Cable USB de datos.
-- Serial Monitor configurado a `115200 baud`.
+- Monitor serial configurado a `115200` baudios.
 
-## Librerias necesarias
+## 1. Preparación de bibliotecas y conexión
 
-En Arduino IDE abre:
+En Arduino IDE abre el administrador de bibliotecas:
 
 ```text
 Sketch -> Include Library -> Manage Libraries...
 ```
 
-Busca e instala:
+Instala:
 
 ```text
 Sensirion I2C SEN5X
-```
-
-Si Arduino IDE lo solicita, instala tambien:
-
-```text
 Sensirion Core
 ```
 
-## Conexion I2C
+I2C utiliza dos líneas principales:
 
-I2C usa dos lineas de comunicacion:
-
-| Linea | Funcion |
+| Línea | Función |
 |---|---|
-| `SDA` | Transporta datos |
-| `SCL` | Transporta el reloj que coordina la lectura |
+| `SDA` | transporte de datos |
+| `SCL` | señal de reloj del bus |
 
-Conecta el sensor siguiendo la alimentacion indicada por tu modulo SEN55. En
-la Swan, usa los pines marcados como `SDA` y `SCL`.
+Conecta el sensor a los pines `SDA` y `SCL` de la Swan. Revisa también la
+alimentación y la conexión a tierra antes de energizar el circuito.
 
-:::caution Antes de energizar
-Revisa voltaje, tierra y orientacion de cables antes de conectar la tarjeta por
-USB. Si hay duda, pide revision antes de encender.
-:::
+## 2. Programa de referencia
 
-## Codigo base
+Consulta el programa de referencia para la lectura del SEN55. El enlace abre el
+material preparado para esta práctica.
 
-Abre el archivo:
+<a href="../codigos/02_sen55_i2c/02_sen55_i2c.ino" class="button button--secondary">Consultar programa de referencia</a>
 
-```text
-static/codigos/02_sen55_i2c/02_sen55_i2c.ino
-```
+El programa puede interpretarse en cuatro momentos:
 
-<a href="../codigos/02_sen55_i2c/02_sen55_i2c.ino" class="button button--secondary">Abrir codigo SEN55</a>
+| Momento | Fragmento | Significado |
+|---|---|---|
+| Bus | `Wire.begin();` | la Swan activa el bus I2C |
+| Sensor | `sen5x.begin(Wire);` | SEN55 queda asociado al bus |
+| Medición | `startMeasurement();` | el sensor inicia su proceso interno |
+| Lectura | `readMeasuredValues(...)` | los datos llegan a variables `float` |
 
-O copia este sketch en Arduino IDE:
+## 3. Lectura del código por bloques
+
+### Bloque A: inicio de comunicación
 
 ```cpp
-#include <Wire.h>
-#include <SensirionI2CSen5x.h>
+Wire.begin();
+sen5x.begin(Wire);
+```
 
-SensirionI2CSen5x sen5x;
+Este bloque corresponde a la diapositiva de I2C: la Swan actúa como
+controlador y el SEN55 responde dentro del mismo bus.
 
-char errorMessage[256];
-uint16_t error;
+### Bloque B: verificación de errores
 
-void setup() {
-  Serial.begin(115200);
-
-  while (!Serial && millis() < 5000) {
+```cpp
+error = sen5x.deviceReset();
+if (error) {
+  errorToString(error, errorMessage, 256);
+  while (1) {
+    delay(1000);
   }
-
-  Serial.println("Iniciando SEN55...");
-
-  Wire.begin();
-  sen5x.begin(Wire);
-
-  error = sen5x.deviceReset();
-  if (error) {
-    Serial.print("Error en deviceReset(): ");
-    errorToString(error, errorMessage, 256);
-    Serial.println(errorMessage);
-
-    while (1) {
-      delay(1000);
-    }
-  }
-
-  Serial.println("SEN55 listo.");
-  Serial.println("----------------------------");
-}
-
-void loop() {
-  float pm1p0;
-  float pm2p5;
-  float pm4p0;
-  float pm10p0;
-  float humidity;
-  float temperature;
-  float vocIndex;
-  float noxIndex;
-
-  Serial.println("Iniciando medicion SEN55...");
-
-  error = sen5x.startMeasurement();
-  if (error) {
-    Serial.print("Error en startMeasurement(): ");
-    errorToString(error, errorMessage, 256);
-    Serial.println(errorMessage);
-    delay(5000);
-    return;
-  }
-
-  Serial.println("Ventilador encendido, esperando estabilizacion...");
-
-  // Para medicion real usa 45000 ms.
-  // Para pruebas rapidas de clase puedes usar 5000 ms.
-  delay(45000);
-
-  error = sen5x.readMeasuredValues(
-    pm1p0,
-    pm2p5,
-    pm4p0,
-    pm10p0,
-    humidity,
-    temperature,
-    vocIndex,
-    noxIndex
-  );
-
-  sen5x.stopMeasurement();
-
-  if (error) {
-    Serial.print("Error en readMeasuredValues(): ");
-    errorToString(error, errorMessage, 256);
-    Serial.println(errorMessage);
-  } else {
-    Serial.println("Datos SEN55:");
-
-    Serial.print("PM1.0: ");
-    Serial.print(pm1p0);
-    Serial.println(" ug/m3");
-
-    Serial.print("PM2.5: ");
-    Serial.print(pm2p5);
-    Serial.println(" ug/m3");
-
-    Serial.print("PM4.0: ");
-    Serial.print(pm4p0);
-    Serial.println(" ug/m3");
-
-    Serial.print("PM10: ");
-    Serial.print(pm10p0);
-    Serial.println(" ug/m3");
-
-    Serial.print("Temperatura: ");
-    Serial.print(temperature);
-    Serial.println(" C");
-
-    Serial.print("Humedad: ");
-    Serial.print(humidity);
-    Serial.println(" %");
-
-    Serial.print("VOC Index: ");
-    Serial.println(vocIndex);
-
-    Serial.print("NOx Index: ");
-    Serial.println(noxIndex);
-
-    Serial.println("----------------------------");
-  }
-
-  delay(10000);
 }
 ```
 
-## Que observar
+`if (error)` es una condición booleana. Si ocurre un error, el programa detiene
+el flujo normal y evita continuar con una lectura inválida.
 
-Abre el Serial Monitor a `115200 baud`. Si la comunicacion funciona, veras un
-flujo parecido a este:
+### Bloque C: almacenamiento de mediciones
+
+```cpp
+float pm2p5;
+float temperature;
+float humidity;
+```
+
+Cada variable almacena un número medido. En la Actividad 3, esta misma relación
+entre “campo” y “valor” se utilizará para construir una nota dirigida a
+Notehub.
+
+## 4. Observación del monitor serial
+
+Abre el monitor serial a `115200` baudios. Deberá aparecer una salida similar a
+la siguiente:
 
 ```text
 Iniciando SEN55...
 SEN55 listo.
-----------------------------
-Iniciando medicion SEN55...
-Ventilador encendido, esperando estabilizacion...
+Iniciando medición SEN55...
 Datos SEN55:
-PM1.0: 2.10 ug/m3
 PM2.5: 3.40 ug/m3
-PM4.0: 4.00 ug/m3
-PM10: 4.70 ug/m3
 Temperatura: 24.60 C
 Humedad: 48.20 %
-VOC Index: 104.00
-NOx Index: 1.00
-----------------------------
 ```
 
-Los numeros exactos no tienen que coincidir. Lo importante es que aparezcan
-valores numericos y que el programa no se quede detenido en un error.
+Los números exactos no tienen que coincidir. Lo importante es que existan
+lecturas numéricas y que el programa no se quede detenido en un error.
 
-## Tiempo de estabilizacion
+## 5. Mini-reto: alerta por PM2.5
 
-El SEN55 enciende un ventilador interno y necesita tiempo para estabilizar la
-lectura. En una medicion mas seria se recomienda esperar:
-
-```cpp
-delay(45000);
-```
-
-Para una prueba rapida en clase puedes cambiar temporalmente a:
-
-```cpp
-delay(5000);
-```
-
-La lectura de 5 segundos sirve para verificar conexion y flujo de datos. Para
-comparar mediciones entre equipos conviene volver a usar el tiempo largo.
-
-## Mini-reto: alerta por PM2.5
-
-Despues de imprimir los datos, agrega una regla sencilla:
+Después de leer `pm2p5`, agrega una regla de decisión:
 
 ```cpp
 if (pm2p5 > 25) {
   Serial.println("ALERTA: PM2.5 elevado.");
+  digitalWrite(LED_BUILTIN, HIGH);
 } else {
   Serial.println("PM2.5 en nivel bajo para esta prueba.");
+  digitalWrite(LED_BUILTIN, LOW);
 }
 ```
 
-Ahora conecta la alerta al LED integrado. En `setup()` agrega:
+En `setup()` agrega también:
 
 ```cpp
 pinMode(LED_BUILTIN, OUTPUT);
 ```
 
-Y despues de leer `pm2p5`, agrega:
+En este punto se integran dos conceptos: el sensor entrega datos por I2C y el LED se
+controla mediante GPIO.
 
-```cpp
-if (pm2p5 > 25) {
-  digitalWrite(LED_BUILTIN, HIGH);
-} else {
-  digitalWrite(LED_BUILTIN, LOW);
-}
-```
+## Registro
 
-## Tabla de registro
+Registra al menos una medición:
 
-Llena una fila por medicion:
-
-| Prueba | Lugar | PM2.5 | PM10 | Temperatura | Humedad | Observacion |
-|---|---|---:|---:|---:|---:|---|
-| A | | | | | | |
-| B | | | | | | |
-| C | | | | | | |
-
-## Preguntas de cierre
-
-- Que lineas fisicas usa I2C?
-- Por que el sensor necesita una direccion dentro del bus?
-- Que diferencia hay entre comprobar que el sensor responde y hacer una
-  medicion ambiental confiable?
-- Que variable cambiaria mas si hay polvo, movimiento o ventilacion cerca?
+| Lugar | PM2.5 | PM10 | Temperatura | Humedad | Observación |
+|---|---:|---:|---:|---:|---|
+| | | | | | |
 
 ## Entregable
 
-Entrega una captura o foto del Serial Monitor con:
+Entrega los siguientes elementos:
 
-- Al menos una lectura completa del SEN55.
-- La tabla con una medicion.
-- Una frase explicando por que I2C permite conectar sensores al mismo bus.
+- Una captura del monitor serial.
+- Una frase explicando qué función cumplen `SDA` y `SCL`.
+- Una frase explicando por qué el código usa `if (error)`.
+- Tu resultado del mini-reto de PM2.5.
 
-<a href="./sensor-simulado" class="button button--primary">Continuar a Actividad 3: sensor simulado</a>
+<nav class="pagination-nav" aria-label="Siguiente paso">
+  <a class="pagination-nav__link pagination-nav__link--next" href="../slides/?slide=12">
+    <div class="pagination-nav__sublabel">Siguiente</div>
+    <div class="pagination-nav__label">Fundamentos de comunicación inalámbrica</div>
+  </a>
+</nav>

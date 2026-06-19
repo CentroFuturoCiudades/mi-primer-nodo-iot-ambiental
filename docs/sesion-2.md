@@ -1,45 +1,49 @@
 ---
-title: Sesion 2. Medir el entorno
+title: Sesión 2. Tecnología para medir el entorno
 ---
 
-# Sesion 2 — Medir el entorno
+# Sesión 2 — Tecnología para medir el entorno
 
 **Fecha:** 20 de junio de 2026  
 **Horario:** 9:00 am - 1:00 pm
 
-## Proposito
+## Propósito
 
-Construir la base tecnica del nodo IoT: microcontrolador, programacion,
-sensores, visualizacion local y comunicacion.
+Construir la base técnica del nodo IoT: microcontrolador, programación,
+sensores, visualización local y comunicación.
+
+Cada actividad sigue este flujo: teoría, armado de hardware y software con Arduino.
 
 ## Agenda
 
 | Hora | Actividad | Recurso |
 |---|---|---|
-| 9:00 - 9:05 | Recapitulacion | PPT |
-| 9:05 - 9:35 | Microcontrolador, Hola Mundo y lenguaje basico | PPT |
-| 9:35 - 10:05 | GPIO, conexion de sensores y pantalla LED | PPT / sensores |
-| 10:05 - 10:40 | Armado del sensor, programacion y lectura inicial | Sensores |
-| 10:40 - 11:10 | Pausa |  |
-| 11:10 - 11:40 | WiFi, LoRa y telecomunicaciones ambientales | PPT |
-| 11:40 - 12:10 | Modulo LoRa y envio de mediciones | Sensores |
-| 12:10 - 12:35 | Pruebas | Sensores funcionando |
-| 12:35 - 12:55 | Plan de medicion y bitacora | Hoja / formato |
-| 12:55 - 1:00 | Cierre y actividad para casa: case reciclado | Ejemplos |
+| 9:00 - 9:20 | Presentación y teoría para Actividad 1: Controlar un LED / Mi primer programa | Presentación |
+| 9:20 - 9:40 | Armado de hardware para Actividad 1 | Manual de hardware |
+| 9:40 - 10:00 | Software Arduino para Actividad 1 | Arduino IDE |
+| 10:00 - 10:20 | Presentación y teoría para Actividad 2: Lectura de mediciones del sensor | Presentación |
+| 10:20 - 10:40 | Armado de hardware para Actividad 2 | Manual de hardware |
+| 10:40 - 11:00 | Software Arduino para Actividad 2 | Arduino IDE |
+| 11:00 - 11:15 | Pausa |  |
+| 11:15 - 11:35 | Presentación y teoría para Actividad 3: Comunicar mediciones del sensor por LoRa | Presentación |
+| 11:35 - 11:55 | Armado de hardware para Actividad 3 | Manual de hardware |
+| 11:55 - 12:15 | Software Arduino para Actividad 3 | Arduino IDE |
+| 12:15 - 12:35 | Pruebas y puesta en común | Sensores / Notecard |
+| 12:35 - 12:55 | Plan de medición y bitácora | Hoja / formato |
+| 12:55 - 1:00 | Cierre y propuesta de carcasa con materiales reciclados | Ejemplos |
 
 ## Materiales principales
 
-- [Presentacion visual de la sesion 2](/slides/)
+- [Presentación visual de la sesión 2](/slides)
 - [Antes de empezar](./antes-de-empezar)
-- [Actividad: algoritmo, memoria y tiempo visible](./tiempo-dentro-del-chip)
-- [Actividad: leer SEN55 por I2C](./hola-mundo)
-- [Actividad: sensor simulado](./sensor-simulado)
-- [Actividad: medir CO2](./medir-co2)
-- [Actividad: medir particulas](./medir-particulas)
+- [Actividad 1: Controlar un LED / Mi primer programa](./tiempo-dentro-del-chip)
+- [Actividad 2: Lectura de mediciones del sensor](./hola-mundo)
+- [Actividad 3: Comunicar mediciones del sensor por LoRa](./sensor-simulado)
 
-## Producto de la sesion
+## Producto de la sesión
 
 - Nodo o prototipo con lectura inicial.
-- Plan de medicion: que medir, donde y cuando.
-- Bitacora de datos y observaciones.
-- Idea de case con materiales reciclados o reutilizados.
+- Prueba de comunicación con Notecard/LoRa.
+- Plan de medición: qué medir, dónde y cuándo.
+- Bitácora de datos y observaciones.
+- Propuesta de carcasa con materiales reciclados o reutilizados.
