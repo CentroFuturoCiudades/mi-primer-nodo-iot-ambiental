@@ -1,24 +1,21 @@
 ---
-title: 3. Comunicar mediciones del sensor por LoRa
+title: C1. Comunicación del nodo ambiental
 pagination_next: null
 ---
 
-# Actividad 3 - Comunicar mediciones del sensor por LoRa
+# C1. Comunicación del nodo ambiental
 
 En esta actividad se relaciona el código con la arquitectura revisada en la
 presentación:
 
 ```text
-Swan -> I2C -> Notecard -> LoRa -> pasarela -> Notehub
+Swan -> I2C -> Notecard -> LoRa -> Gateway -> Notehub
 ```
 
-El propósito no es memorizar todo el firmware, sino reconocer cómo el programa
-prepara la secuencia de comunicación, construye una nota y solicita su
-sincronización.
 
 ## Objetivo
 
-Interpretar el código como una arquitectura de comunicación por capas:
+Interpretar elementos clave de los algoritmos revisados en esta sección:
 
 | Elemento de código | Función en el sistema |
 |---|---|
@@ -87,7 +84,7 @@ JAddNumberToObject(body, "humidity", 55.0);
 JAddNumberToObject(body, "battery", 3.7);
 ```
 
-Esta es la misma idea presentada en la diapositiva: una nota `sensors.qo`
+Una nota `sensors.qo`
 contiene campos con valores concretos.
 
 ### Bloque E: solicitud de sincronización
@@ -119,16 +116,15 @@ delay(15000);
 Pregunta de verificación: ¿por qué un nodo real no debería enviar datos cada pocos
 segundos durante todo el día?
 
-## 3. Lectura del firmware final por capas
+## 3. Lectura del firmware final
 
-Consulta el firmware final del nodo ambiental. El análisis no debe hacerse como
-una lectura lineal, sino como una revisión por capas funcionales.
+Consulta el firmware final del nodo ambiental e identifica los elementos clave.
 
 <a href="../codigos/03_firmware_final/NEU_Weather_Solar_V1_1.ino" class="button button--secondary">Consultar firmware final</a>
 
-Analízalo por capas:
+Elementos clave:
 
-| Capa | Elementos por identificar |
+| Bloque | Elementos por identificar |
 |---|---|
 | Identidad | `ProductUID` |
 | Comunicación | `Wire`, `Notecard`, `hub.set`, `hub.sync` |
@@ -149,12 +145,4 @@ Completa la tabla:
 | ¿Dónde aparece una condición booleana? | |
 | ¿Qué parte conecta con Notehub? | |
 
-## Entregable
 
-Entrega una nota breve con:
-
-- Evidencia de una nota enviada, o de un intento de envío, en el monitor serial.
-- Explicación de `note.template` en tus palabras.
-- Explicación de `note.add` en tus palabras.
-- Una condición booleana encontrada en el código.
-- Un diagrama breve de la secuencia: Swan -> Notecard -> LoRa -> Notehub.

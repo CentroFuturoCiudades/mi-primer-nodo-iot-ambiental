@@ -11,6 +11,13 @@
   --course-dark: #062b27;
   --course-amber: #f5b041;
   --course-soft: #f2fbf9;
+  --manual-blue: #1b87a3;
+  --manual-blue-soft: #dceff4;
+  --manual-green: #2f9b73;
+  --manual-green-soft: #e3f4ec;
+  --manual-pink: #c65b83;
+  --manual-pink-soft: #f7e2eb;
+  --manual-water: #c9dce3;
 }
 
 .homeCover {
@@ -273,6 +280,24 @@
   border-radius: 8px;
   background: white;
   box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+  border-top: 10px solid var(--session-color, var(--course-teal));
+  background:
+    linear-gradient(180deg, var(--session-soft, #ffffff) 0, #ffffff 150px);
+}
+
+.sessionCard--blue {
+  --session-color: var(--manual-blue);
+  --session-soft: var(--manual-blue-soft);
+}
+
+.sessionCard--green {
+  --session-color: var(--manual-green);
+  --session-soft: var(--manual-green-soft);
+}
+
+.sessionCard--pink {
+  --session-color: var(--manual-pink);
+  --session-soft: var(--manual-pink-soft);
 }
 
 .sessionCardTop {
@@ -294,7 +319,7 @@
 
 .sessionNumber {
   color: white;
-  background: var(--course-teal);
+  background: var(--session-color, var(--course-teal));
 }
 
 .sessionStatus {
@@ -316,7 +341,7 @@
 }
 
 .sessionSubtitle {
-  color: var(--course-teal);
+  color: var(--session-color, var(--course-teal));
   font-weight: 900;
   margin: 0.35rem 0 0.75rem;
 }
@@ -335,7 +360,8 @@
 
 .sessionFocus span {
   color: #173532;
-  background: rgba(0, 137, 123, 0.1);
+  background: color-mix(in srgb, var(--session-color, var(--course-teal)) 14%, white);
+  border: 1px solid color-mix(in srgb, var(--session-color, var(--course-teal)) 25%, white);
 }
 
 .sessionActions {
@@ -401,9 +427,115 @@
 }
 
 .resourceButton {
-  border: 2px solid var(--course-teal);
-  color: var(--course-teal) !important;
+  border: 2px solid var(--session-color, var(--course-teal));
+  color: var(--session-color, var(--course-teal)) !important;
   padding: 0.6rem 0.95rem;
+}
+
+.activityLegend {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem 0.9rem;
+  margin: 1.4rem 0 2rem;
+  padding: 1rem;
+  border: 1px solid rgba(27, 135, 163, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(201, 220, 227, 0.38), rgba(255, 255, 255, 0.96));
+}
+
+.activityLegend p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.activityBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.55rem;
+  height: 2.05rem;
+  padding: 0 0.55rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+}
+
+.activityBadge--a1 {
+  background: var(--manual-blue);
+}
+
+.activityBadge--a2 {
+  background: var(--manual-blue);
+}
+
+.activityBadge--c1 {
+  background: var(--manual-pink);
+}
+
+.coloredAgenda {
+  width: 100%;
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid rgba(16, 67, 78, 0.16);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(16, 67, 78, 0.06);
+}
+
+.coloredAgenda thead th {
+  background: #8fb4c0;
+  color: #102f36;
+  border: 0;
+  font-weight: 950;
+}
+
+.coloredAgenda th,
+.coloredAgenda td {
+  border-color: rgba(16, 67, 78, 0.13);
+  vertical-align: middle;
+}
+
+.coloredAgenda td:first-child {
+  width: 9.5rem;
+  font-weight: 850;
+  color: #26373b;
+}
+
+.coloredAgenda td:nth-child(2) {
+  width: 4.6rem;
+  text-align: center;
+}
+
+.agendaRow--a1 td {
+  background: var(--manual-blue-soft);
+  border-left-color: var(--manual-blue);
+}
+
+.agendaRow--a2 td {
+  background: var(--manual-blue-soft);
+  border-left-color: var(--manual-blue);
+}
+
+.agendaRow--c1 td {
+  background: var(--manual-pink-soft);
+  border-left-color: var(--manual-pink);
+}
+
+.agendaRow--pause td {
+  background: #f6f8f8;
+  color: #4e5d61;
+}
+
+.agendaRow--shared td {
+  background: #edf5f7;
+}
+
+.agendaRow td:first-child {
+  border-left-width: 8px;
+  border-left-style: solid;
 }
 
 .stepGrid {

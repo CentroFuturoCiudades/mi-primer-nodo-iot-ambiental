@@ -38,7 +38,7 @@ export default function Home() {
                 </p>
 
                 <p className="coverDescription">
-                  Repositorio académico con agenda, presentaciones, prácticas
+                  Repositorio, presentaciones, prácticas
                   de laboratorio, bitácoras y productos de aprendizaje de las
                   cuatro sesiones.
                 </p>
@@ -73,7 +73,7 @@ export default function Home() {
         <section className="pageSection">
           <div className="sectionIntro">
             <p className="sectionKicker">Ruta formativa</p>
-            <h2>Cuatro sesiones articuladas</h2>
+            <h2>Cuatro sesiones</h2>
             <p>
               La primera sesión define el problema ambiental y las preguntas de
               observación. La segunda sesión introduce el nodo de medición. Las
@@ -92,10 +92,9 @@ export default function Home() {
         <section className="pageSection bandSection">
           <div className="sectionIntro">
             <p className="sectionKicker">Repositorio de consulta</p>
-            <h2>Material académico del taller</h2>
+            <h2>Material del taller</h2>
             <p>
-              Cada sesión reúne sus presentaciones, prácticas, instrumentos de
-              registro y productos esperados. El material está organizado para
+              Cada sesión reúne sus presentaciones, prácticas y productos esperados. El material está organizado para
               consulta previa, trabajo en aula y revisión posterior.
             </p>
           </div>

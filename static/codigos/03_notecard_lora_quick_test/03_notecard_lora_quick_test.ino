@@ -3,6 +3,7 @@
 #include <Notecard.h>
 
 #define ProductUID "mx.tec.alanromero:arroyo_vivo"
+#define TEAM_ID 1   // Cambiar por equipo: 1, 2, 3, ... 10
 
 Notecard notecard;
 int counter = 0;
@@ -18,6 +19,8 @@ void setup() {
   Serial.println();
   Serial.println("=================================");
   Serial.println("RAK2287 LoRa quick test");
+  Serial.print("TEAM_ID: ");
+  Serial.println(TEAM_ID);
   Serial.println("ProductUID: mx.tec.alanromero:arroyo_vivo");
   Serial.println("=================================");
 
@@ -43,6 +46,7 @@ void setup() {
 
     J *body = JAddObjectToObject(req, "body");
     if (body != NULL) {
+      JAddNumberToObject(body, "team_id", TUINT8);
       JAddNumberToObject(body, "counter", TUINT32);
       JAddNumberToObject(body, "temp", TFLOAT32);
       JAddNumberToObject(body, "humidity", TFLOAT32);
@@ -72,6 +76,7 @@ void loop() {
 
     J *body = JAddObjectToObject(req, "body");
     if (body != NULL) {
+      JAddNumberToObject(body, "team_id", TEAM_ID);
       JAddNumberToObject(body, "counter", counter);
       JAddNumberToObject(body, "temp", 25.5);
       JAddNumberToObject(body, "humidity", 55.0);

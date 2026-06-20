@@ -1,10 +1,10 @@
 ---
-title: 1. Controlar un LED / Mi primer programa
+title: A1. Mi primer programa
 pagination_next: null
 pagination_prev: null
 ---
 
-# Actividad 1 - Controlar un LED / Mi primer programa
+# A1. Mi primer programa
 
 En esta actividad se utiliza el LED de la **Blues Swan R5** para observar una
 idea fundamental: un programa es una secuencia de instrucciones almacenadas en
@@ -143,23 +143,11 @@ Una condición booleana solo puede tomar dos caminos: verdadero o falso. Esta
 misma idea aparecerá después cuando el programa decida si hubo error, si un
 sensor respondió o si una medición rebasa un umbral.
 
-## Entregable
 
-Entrega una captura o nota breve con:
-
-- Tu patrón final de LED.
-- Una frase que explique qué hace `loop()`.
-- Una frase que explique qué hace `delay(...)`.
-- Una condición booleana escrita por ti.
-
-## Cierre
-
-Aunque el LED es un elemento sencillo, permite estudiar principios esenciales
-del firmware: instrucciones, repetición, tiempo, funciones y decisiones.
 
 <nav class="pagination-nav" aria-label="Siguiente paso">
-  <a class="pagination-nav__link pagination-nav__link--next" href="../slides/?slide=10">
+  <a class="pagination-nav__link pagination-nav__link--next" href="../slides/?slide=9">
     <div class="pagination-nav__sublabel">Siguiente</div>
-    <div class="pagination-nav__label">Comunicación local, GPIO y sensores</div>
+    <div class="pagination-nav__label">Protocolos de comunicación serial</div>
   </a>
 </nav>

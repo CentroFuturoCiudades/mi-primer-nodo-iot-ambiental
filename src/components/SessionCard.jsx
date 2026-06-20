@@ -3,7 +3,7 @@ import Link from '@docusaurus/Link';
 
 export default function SessionCard({session}) {
   return (
-    <article className="sessionCard">
+    <article className={`sessionCard sessionCard--${session.color || 'blue'}`}>
       <div className="sessionCardTop">
         <span className="sessionNumber">Sesión {session.number}</span>
         <span className="sessionStatus">{session.status}</span>

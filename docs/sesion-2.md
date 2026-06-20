@@ -12,33 +12,108 @@ title: Sesión 2. Tecnología para medir el entorno
 Construir la base técnica del nodo IoT: microcontrolador, programación,
 sensores, visualización local y comunicación.
 
-Cada actividad sigue este flujo: teoría, armado de hardware y software con Arduino.
+Cada práctica sigue una secuencia común: fundamento técnico, armado del sistema
+y programación guiada. La codificación por color permite reconocer con rapidez
+el tipo de trabajo de cada bloque.
+
+<div class="activityLegend" aria-label="Código de color de las prácticas">
+  <span class="activityBadge activityBadge--a1">A1</span>
+  <p><strong>Mi primer programa.</strong> Control de un LED como salida observable del microcontrolador.</p>
+  <span class="activityBadge activityBadge--a2">A2</span>
+  <p><strong>Lectura ambiental.</strong> Obtención de mediciones del sensor mediante I2C.</p>
+  <span class="activityBadge activityBadge--c1">C1</span>
+  <p><strong>Comunicación del nodo.</strong> Envío de mediciones mediante Notecard y LoRa.</p>
+</div>
 
 ## Agenda
 
-| Hora | Actividad | Recurso |
-|---|---|---|
-| 9:00 - 9:20 | Presentación y teoría para Actividad 1: Controlar un LED / Mi primer programa | Presentación |
-| 9:20 - 9:40 | Armado de hardware para Actividad 1 | Manual de hardware |
-| 9:40 - 10:00 | Software Arduino para Actividad 1 | Arduino IDE |
-| 10:00 - 10:20 | Presentación y teoría para Actividad 2: Lectura de mediciones del sensor | Presentación |
-| 10:20 - 10:40 | Armado de hardware para Actividad 2 | Manual de hardware |
-| 10:40 - 11:00 | Software Arduino para Actividad 2 | Arduino IDE |
-| 11:00 - 11:15 | Pausa |  |
-| 11:15 - 11:35 | Presentación y teoría para Actividad 3: Comunicar mediciones del sensor por LoRa | Presentación |
-| 11:35 - 11:55 | Armado de hardware para Actividad 3 | Manual de hardware |
-| 11:55 - 12:15 | Software Arduino para Actividad 3 | Arduino IDE |
-| 12:15 - 12:35 | Pruebas y puesta en común | Sensores / Notecard |
-| 12:35 - 12:55 | Plan de medición y bitácora | Hoja / formato |
-| 12:55 - 1:00 | Cierre y propuesta de carcasa con materiales reciclados | Ejemplos |
+<table class="coloredAgenda">
+  <thead>
+    <tr>
+      <th>Hora</th>
+      <th>Bloque</th>
+      <th>Actividad</th>
+      <th>Recurso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="agendaRow agendaRow--a1">
+      <td>9:30 - 10:00</td>
+      <td><span class="activityBadge activityBadge--a1">A1</span></td>
+      <td>Fundamento técnico: señal digital, programa y control de LED.</td>
+      <td>Presentación</td>
+    </tr>
+    <tr class="agendaRow agendaRow--a1">
+      <td>10:00 - 10:10</td>
+      <td><span class="activityBadge activityBadge--a1">A1</span></td>
+      <td>Armado de hardware para observar una salida digital.</td>
+      <td>Manual de hardware</td>
+    </tr>
+    <tr class="agendaRow agendaRow--a1">
+      <td>10:10 - 10:30</td>
+      <td><span class="activityBadge activityBadge--a1">A1</span></td>
+      <td>Programación en Arduino IDE: primer programa y patrón del LED.</td>
+      <td>Arduino IDE</td>
+    </tr>
+    <tr class="agendaRow agendaRow--a2">
+      <td>10:30 - 11:00</td>
+      <td><span class="activityBadge activityBadge--a2">A2</span></td>
+      <td>Fundamento técnico: sensor SEN55, bus I2C y lectura de variables ambientales.</td>
+      <td>Presentación</td>
+    </tr>
+    <tr class="agendaRow agendaRow--pause">
+      <td>11:00 - 11:15</td>
+      <td></td>
+      <td>Pausa.</td>
+      <td></td>
+    </tr>
+    <tr class="agendaRow agendaRow--a2">
+      <td>11:20 - 11:30</td>
+      <td><span class="activityBadge activityBadge--a2">A2</span></td>
+      <td>Armado de hardware para conectar alimentación, SDA, SCL y tierra.</td>
+      <td>Manual de hardware</td>
+    </tr>
+    <tr class="agendaRow agendaRow--a2">
+      <td>11:30 - 11:50</td>
+      <td><span class="activityBadge activityBadge--a2">A2</span></td>
+      <td>Programación en Arduino IDE: lectura del sensor y registro en monitor serial.</td>
+      <td>Arduino IDE</td>
+    </tr>
+    <tr class="agendaRow agendaRow--c1">
+      <td>11:50 - 12:10</td>
+      <td><span class="activityBadge activityBadge--c1">C1</span></td>
+      <td>Fundamento técnico: comunicación del nodo, Notecard, LoRa y Notehub.</td>
+      <td>Presentación</td>
+    </tr>
+    <tr class="agendaRow agendaRow--c1">
+      <td>12:10 - 12:30</td>
+      <td><span class="activityBadge activityBadge--c1">C1</span></td>
+      <td>Armado de hardware para integrar comunicación y medición ambiental.</td>
+      <td>Manual de hardware</td>
+    </tr>
+    <tr class="agendaRow agendaRow--c1">
+      <td>12:30 - 12:55</td>
+      <td><span class="activityBadge activityBadge--c1">C1</span></td>
+      <td>Programación en Arduino IDE: nota, plantilla y sincronización.</td>
+      <td>Arduino IDE</td>
+    </tr>
+    <tr class="agendaRow agendaRow--shared">
+      <td>12:55 - 1:00</td>
+      <td></td>
+      <td>Cierre.</td>
+      <td>Ejemplos</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Materiales principales
 
 - [Presentación visual de la sesión 2](/slides)
+- [Manual de hardware](/materiales/sesion-02/Manual%20Sensor%20Ambiental-3.pdf)
 - [Antes de empezar](./antes-de-empezar)
-- [Actividad 1: Controlar un LED / Mi primer programa](./tiempo-dentro-del-chip)
-- [Actividad 2: Lectura de mediciones del sensor](./hola-mundo)
-- [Actividad 3: Comunicar mediciones del sensor por LoRa](./sensor-simulado)
+- [A1. Mi primer programa](./tiempo-dentro-del-chip)
+- [A2. Lectura ambiental con SEN55](./hola-mundo)
+- [C1. Comunicación del nodo ambiental](./sensor-simulado)
 
 ## Producto de la sesión
 

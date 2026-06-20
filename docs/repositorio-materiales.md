@@ -25,9 +25,9 @@ Material disponible:
 
 - [Guía y materiales de la sesión 2](./sesion-2#materiales-principales)
 - [Preparación de Arduino y Blues Swan](./antes-de-empezar)
-- [Actividad 1: Controlar un LED / Mi primer programa](./tiempo-dentro-del-chip)
-- [Actividad 2: Lectura de mediciones del sensor](./hola-mundo)
-- [Actividad 3: Comunicar mediciones del sensor por LoRa](./sensor-simulado)
+- [A1. Señal digital y primer programa](./tiempo-dentro-del-chip)
+- [A2. Lectura ambiental con SEN55](./hola-mundo)
+- [C1. Comunicación del nodo ambiental](./sensor-simulado)
 
 Programas de referencia:
 

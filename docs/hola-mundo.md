@@ -1,10 +1,10 @@
 ---
-title: 2. Lectura de mediciones del sensor
+title: A2. Lectura ambiental con SEN55
 pagination_next: null
 pagination_prev: null
 ---
 
-# Actividad 2 - Lectura de mediciones del sensor
+# A2. Lectura ambiental con SEN55
 
 En esta actividad se lee el sensor **SEN55** desde la **Blues Swan R5**. El
 propósito es vincular los conceptos de I2C y GPIO revisados en la presentación
@@ -14,7 +14,7 @@ con un programa real de medición ambiental:
 Swan -> SDA/SCL -> SEN55 -> monitor serial
 ```
 
-En esta etapa no se utiliza Notecard ni LoRa. Primero se verifica que la Swan
+Primero se verifica que la Swan
 puede iniciar el bus I2C, comunicarse con el sensor y convertir la respuesta en
 variables del programa.
 
@@ -34,7 +34,7 @@ Identificar en el código los siguientes elementos:
 
 - Blues Swan R5 configurada.
 - Sensor SEN55 o SEN5x compatible.
-- Cables para alimentación, `SDA`, `SCL` y `GND`.
+- Cables QWIIC.
 - Arduino IDE.
 - Monitor serial configurado a `115200` baudios.
 
@@ -52,16 +52,6 @@ Instala:
 Sensirion I2C SEN5X
 Sensirion Core
 ```
-
-I2C utiliza dos líneas principales:
-
-| Línea | Función |
-|---|---|
-| `SDA` | transporte de datos |
-| `SCL` | señal de reloj del bus |
-
-Conecta el sensor a los pines `SDA` y `SCL` de la Swan. Revisa también la
-alimentación y la conexión a tierra antes de energizar el circuito.
 
 ## 2. Programa de referencia
 
@@ -88,8 +78,7 @@ Wire.begin();
 sen5x.begin(Wire);
 ```
 
-Este bloque corresponde a la diapositiva de I2C: la Swan actúa como
-controlador y el SEN55 responde dentro del mismo bus.
+Se inicializa el protocolo I2C con el sensor,  el microcontrolador se comunica y el sensor responde dentro del mismo bus.
 
 ### Bloque B: verificación de errores
 
@@ -109,12 +98,12 @@ el flujo normal y evita continuar con una lectura inválida.
 ### Bloque C: almacenamiento de mediciones
 
 ```cpp
-float pm2p5;
+float pm25;
 float temperature;
 float humidity;
 ```
 
-Cada variable almacena un número medido. En la Actividad 3, esta misma relación
+Cada variable almacena un número medido. En la práctica C1, esta misma relación
 entre “campo” y “valor” se utilizará para construir una nota dirigida a
 Notehub.
 
@@ -138,10 +127,10 @@ lecturas numéricas y que el programa no se quede detenido en un error.
 
 ## 5. Mini-reto: alerta por PM2.5
 
-Después de leer `pm2p5`, agrega una regla de decisión:
+Después de leer `pm25`, agrega una regla de decisión:
 
 ```cpp
-if (pm2p5 > 25) {
+if (pm25 > 25) {
   Serial.println("ALERTA: PM2.5 elevado.");
   digitalWrite(LED_BUILTIN, HIGH);
 } else {
@@ -159,25 +148,9 @@ pinMode(LED_BUILTIN, OUTPUT);
 En este punto se integran dos conceptos: el sensor entrega datos por I2C y el LED se
 controla mediante GPIO.
 
-## Registro
-
-Registra al menos una medición:
-
-| Lugar | PM2.5 | PM10 | Temperatura | Humedad | Observación |
-|---|---:|---:|---:|---:|---|
-| | | | | | |
-
-## Entregable
-
-Entrega los siguientes elementos:
-
-- Una captura del monitor serial.
-- Una frase explicando qué función cumplen `SDA` y `SCL`.
-- Una frase explicando por qué el código usa `if (error)`.
-- Tu resultado del mini-reto de PM2.5.
 
 <nav class="pagination-nav" aria-label="Siguiente paso">
-  <a class="pagination-nav__link pagination-nav__link--next" href="../slides/?slide=12">
+  <a class="pagination-nav__link pagination-nav__link--next" href="../slides/?slide=11">
     <div class="pagination-nav__sublabel">Siguiente</div>
     <div class="pagination-nav__label">Fundamentos de comunicación inalámbrica</div>
   </a>

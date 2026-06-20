@@ -2,6 +2,7 @@ const sessions = [
   {
     number: '01',
     status: 'Realizada',
+    color: 'blue',
     date: '13 de junio de 2026',
     title: 'Entender el arroyo',
     subtitle: 'Del problema a los datos',
@@ -14,6 +15,7 @@ const sessions = [
   {
     number: '02',
     status: 'Material activo',
+    color: 'green',
     date: '20 de junio de 2026',
     title: 'Medir el entorno',
     subtitle: 'Microcontrolador, sensores y comunicación',
@@ -26,6 +28,7 @@ const sessions = [
   {
     number: '03',
     status: 'Por venir',
+    color: 'pink',
     date: '27 de junio de 2026',
     title: 'Procesar información',
     subtitle: 'Análisis y visualización',
@@ -38,6 +41,7 @@ const sessions = [
   {
     number: '04',
     status: 'Por venir',
+    color: 'blue',
     date: '4 de julio de 2026',
     title: 'Reflexionar y accionar',
     subtitle: 'Resultados, propuestas y presentaciones',
