@@ -31,3 +31,8 @@ interpretar datos, detectar diferencias entre entornos y crear visualizaciones.
 - Comparación entre equipos o lugares.
 - Gráfica o tablero básico.
 - Primera interpretación: qué indican los datos.
+
+## Recurso complementario
+
+- [Datos de sensores de calidad del aire de Monterrey](https://bit.ly/43Vov82)
+- Estos datos servirán como referencia para que los chicos comparen sus mediciones capturadas y observen diferencias entre sus resultados y los registros de la ciudad.
