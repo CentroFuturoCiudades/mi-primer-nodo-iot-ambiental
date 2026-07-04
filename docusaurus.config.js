@@ -49,6 +49,11 @@ const config = {
           position: 'left',
         },
         {
+          to: '/dashboard',
+          label: 'Dashboard',
+          position: 'left',
+        },
+        {
           to: '/actividades/ayuda',
           label: 'Soporte',
           position: 'left',

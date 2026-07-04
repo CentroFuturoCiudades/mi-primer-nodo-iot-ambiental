@@ -54,6 +54,10 @@ export default function Home() {
                   >
                     Recursos del taller
                   </Link>
+
+                  <Link className="outlineButton" to="/dashboard">
+                    Ver dashboard
+                  </Link>
                 </div>
               </div>
 

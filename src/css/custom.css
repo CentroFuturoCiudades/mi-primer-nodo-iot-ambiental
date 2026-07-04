@@ -593,6 +593,597 @@ html[data-theme='dark'] .stepCard {
   background: rgba(245, 176, 65, 0.12);
 }
 
+.dashboardPage {
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  background:
+    linear-gradient(180deg, rgba(242, 251, 249, 0.96), #fffdf8 460px),
+    #fffdf8;
+  color: var(--course-dark);
+  padding-bottom: 3rem;
+}
+
+.dashboardHero,
+.dashboardLayout,
+.metricGrid,
+.historySection {
+  width: min(100%, 1280px);
+  margin: 0 auto;
+}
+
+.dashboardHero {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.6rem 1.5rem 1rem;
+}
+
+.dashboardHero img {
+  width: 100%;
+  height: auto;
+}
+
+.dashboardHeroText h1 {
+  color: var(--course-teal);
+  font-size: clamp(2.2rem, 4.8vw, 4.6rem);
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1;
+  margin: 0;
+}
+
+.dashboardHeroText p:last-child,
+.historyHeader p,
+.selectedNodeHeader p,
+.gatewayNotice p {
+  color: #4f6460;
+  line-height: 1.55;
+  margin: 0.55rem 0 0;
+}
+
+.dashboardKicker {
+  color: var(--course-teal);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1.2;
+  margin: 0 0 0.34rem;
+  text-transform: uppercase;
+}
+
+.dashboardHeroActions {
+  display: grid;
+  gap: 0.65rem;
+  justify-items: end;
+}
+
+.dashboardStatus,
+.refreshButton,
+.loadingPill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.dashboardStatus {
+  gap: 0.52rem;
+  border: 1px solid rgba(47, 155, 115, 0.26);
+  background: #ffffff;
+  color: #1f6a50;
+  padding: 0.58rem 0.78rem;
+  box-shadow: 0 10px 24px rgba(16, 67, 78, 0.07);
+}
+
+.dashboardStatus span,
+.loadingPill::before {
+  width: 0.68rem;
+  height: 0.68rem;
+  border-radius: 999px;
+  background: var(--manual-green);
+  content: '';
+}
+
+.dashboardStatus[data-status='loading'] span,
+.loadingPill::before {
+  background: var(--course-amber);
+}
+
+.dashboardStatus[data-status='error'] span {
+  background: var(--manual-pink);
+}
+
+.refreshButton {
+  justify-content: center;
+  border: 2px solid var(--course-teal);
+  background: var(--course-teal);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.62rem 0.9rem;
+}
+
+.refreshButton:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.dashboardLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.62fr);
+  gap: 1rem;
+  padding: 0 1.5rem;
+}
+
+.dashboardPanel,
+.dashboardMetric,
+.historyStat {
+  border: 1px solid rgba(16, 67, 78, 0.12);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 14px 34px rgba(16, 67, 78, 0.065);
+}
+
+.dashboardPanel {
+  padding: 1.1rem;
+}
+
+.panelHeader,
+.historyHeader {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.panelHeader {
+  margin-bottom: 0.9rem;
+}
+
+.panelHeader h2,
+.panelHeader h3,
+.selectedNodeHeader h2,
+.historyHeader h2,
+.gatewayNotice h3 {
+  color: var(--course-dark);
+  letter-spacing: 0;
+  line-height: 1.12;
+  margin: 0;
+}
+
+.panelHeader h2,
+.selectedNodeHeader h2,
+.historyHeader h2 {
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+}
+
+.panelHeader h3,
+.gatewayNotice h3 {
+  font-size: 1.2rem;
+}
+
+.mapLink {
+  color: var(--manual-blue);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.mapSummary {
+  color: #61716e;
+  font-size: 0.9rem;
+  font-weight: 850;
+  margin: 0.25rem 0 0;
+}
+
+.dashboardMap {
+  position: relative;
+  height: 545px;
+  min-height: 545px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 67, 78, 0.12);
+  border-radius: 8px;
+  background: var(--manual-blue-soft);
+}
+
+.avMapMarker {
+  width: 44px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  filter: drop-shadow(0 8px 14px rgba(6,43,39,.22));
+}
+
+.avMapMarkerPin {
+  width: 42px;
+  height: 42px;
+  border-radius: 50% 50% 50% 8px;
+  transform: rotate(-45deg);
+  background: var(--marker-color);
+  border: 3px solid white;
+  display: grid;
+  place-items: center;
+}
+
+.avMapMarkerPin span {
+  transform: rotate(45deg);
+  color: white;
+  font-weight: 950;
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+
+.avMapMarker.isSelected .avMapMarkerPin {
+  outline: 4px solid rgba(245,176,65,.38);
+}
+
+.avMapPopup {
+  min-width: 150px;
+}
+
+.avMapPopup h3 {
+  color: var(--course-dark);
+  font-size: 1rem;
+  line-height: 1.15;
+  margin: 0 0 0.55rem;
+}
+
+.avMapPopup p {
+  display: grid;
+  gap: 0.08rem;
+  margin: 0 0 0.45rem;
+}
+
+.avMapPopup span {
+  color: #61716e;
+  font-size: 0.7rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.avMapPopup strong {
+  color: var(--course-dark);
+  font-weight: 900;
+}
+
+.avPopupButton {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: var(--course-teal);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 950;
+  margin-top: 0.25rem;
+  padding: 0.48rem 0.6rem;
+}
+
+.nodeOverview {
+  display: grid;
+  align-content: start;
+  gap: 1.1rem;
+}
+
+.selectedNodeHeader {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.nodeInitial {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 8px;
+  background: var(--manual-green-soft);
+  color: var(--manual-green);
+  font-size: 1.25rem;
+  font-weight: 950;
+}
+
+.nodeInitial--gateway {
+  background: var(--manual-blue-soft);
+  color: var(--manual-blue);
+}
+
+.nodeDetails {
+  display: grid;
+  gap: 0.78rem;
+  margin: 0;
+}
+
+.nodeDetails dt {
+  color: #61716e;
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.nodeDetails dd {
+  color: #173532;
+  font-weight: 850;
+  margin: 0.08rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+.activeDevices {
+  border-top: 1px solid rgba(16, 67, 78, 0.12);
+  padding-top: 1rem;
+}
+
+.activeDeviceList {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.activeDeviceButton {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: 0.58rem;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(16, 67, 78, 0.12);
+  border-radius: 8px;
+  background: #f9fdfc;
+  color: var(--course-dark);
+  cursor: pointer;
+  font: inherit;
+  padding: 0.62rem 0.7rem;
+  text-align: left;
+}
+
+.activeDeviceButton:hover,
+.activeDeviceButton--selected {
+  border-color: var(--course-teal);
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(16, 67, 78, 0.08);
+}
+
+.activeDeviceButton span {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: var(--manual-green-soft);
+  font-size: 1.05rem;
+}
+
+.activeDeviceButton strong {
+  overflow: hidden;
+  font-size: 0.95rem;
+  font-weight: 950;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activeDeviceButton small {
+  color: #61716e;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.dashboardError {
+  color: #8a1f3f;
+  background: var(--manual-pink-soft);
+  border-radius: 8px;
+  font-weight: 850;
+  margin: 0;
+  padding: 0.85rem;
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+  padding: 1rem 1.5rem 0;
+}
+
+.dashboardMetric {
+  min-height: 148px;
+  padding: 1rem;
+  border-top: 7px solid var(--metric-color, var(--course-teal));
+}
+
+.dashboardMetric p,
+.historyStat p {
+  color: #26373b;
+  font-weight: 950;
+  margin: 0;
+}
+
+.dashboardMetric strong {
+  display: block;
+  color: var(--metric-color, var(--course-teal));
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: 0;
+  line-height: 1;
+  margin-top: 1.1rem;
+}
+
+.dashboardMetric small,
+.historyStat span {
+  color: #5e6c6a;
+  font-weight: 900;
+}
+
+.dashboardMetric--green,
+.historyStat--green {
+  --metric-color: var(--manual-green);
+}
+
+.dashboardMetric--blue {
+  --metric-color: var(--manual-blue);
+}
+
+.dashboardMetric--amber,
+.historyStat--amber {
+  --metric-color: var(--course-amber);
+}
+
+.dashboardMetric--pink,
+.historyStat--pink {
+  --metric-color: var(--manual-pink);
+}
+
+.pmStatus {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 950;
+  padding: 0.24rem 0.55rem;
+}
+
+.pmStatus--good {
+  background: var(--manual-green-soft);
+  color: #1f6a50;
+}
+
+.pmStatus--moderate {
+  background: rgba(245, 176, 65, 0.2);
+  color: #7a4b00;
+}
+
+.pmStatus--high {
+  background: var(--manual-pink-soft);
+  color: #8a1f3f;
+}
+
+.pmStatus--muted {
+  background: #eef3f2;
+  color: #61716e;
+}
+
+.historySection {
+  padding: 1.25rem 1.5rem 0;
+}
+
+.historyHeader {
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.loadingPill {
+  gap: 0.48rem;
+  border: 1px solid rgba(245, 176, 65, 0.32);
+  background: rgba(245, 176, 65, 0.12);
+  color: #7a4b00;
+  padding: 0.5rem 0.75rem;
+}
+
+.historyStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.historyStat {
+  border-top: 6px solid var(--metric-color, var(--course-teal));
+  padding: 0.95rem;
+}
+
+.historyStat strong {
+  display: block;
+  color: var(--metric-color, var(--course-teal));
+  font-size: 2rem;
+  line-height: 1;
+  margin: 0.72rem 0 0.25rem;
+}
+
+.historyStat dl {
+  display: flex;
+  gap: 1rem;
+  margin: 0.9rem 0 0;
+}
+
+.historyStat dt {
+  color: #61716e;
+  font-size: 0.74rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.historyStat dd {
+  color: #173532;
+  font-weight: 950;
+  margin: 0.08rem 0 0;
+}
+
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.chartPanel {
+  min-width: 0;
+}
+
+.chartFrame {
+  height: 360px;
+}
+
+.emptyChart {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: #61716e;
+  font-weight: 850;
+  margin: 0;
+}
+
+.gatewayNotice {
+  max-width: 620px;
+}
+
+html[data-theme='dark'] .dashboardPage {
+  background: #0f1717;
+}
+
+html[data-theme='dark'] .dashboardPanel,
+html[data-theme='dark'] .dashboardMetric,
+html[data-theme='dark'] .historyStat,
+html[data-theme='dark'] .dashboardStatus {
+  background: #151f1f;
+  border-color: rgba(255,255,255,0.12);
+}
+
+html[data-theme='dark'] .dashboardHeroText p:last-child,
+html[data-theme='dark'] .historyHeader p,
+html[data-theme='dark'] .selectedNodeHeader p,
+html[data-theme='dark'] .gatewayNotice p,
+html[data-theme='dark'] .mapSummary,
+html[data-theme='dark'] .dashboardMetric p,
+html[data-theme='dark'] .dashboardMetric small,
+html[data-theme='dark'] .historyStat p,
+html[data-theme='dark'] .historyStat span,
+html[data-theme='dark'] .historyStat dd,
+html[data-theme='dark'] .nodeDetails dd {
+  color: rgba(255,255,255,0.78);
+}
+
+html[data-theme='dark'] .panelHeader h2,
+html[data-theme='dark'] .panelHeader h3,
+html[data-theme='dark'] .selectedNodeHeader h2,
+html[data-theme='dark'] .historyHeader h2,
+html[data-theme='dark'] .gatewayNotice h3 {
+  color: #80cbc4;
+}
+
+html[data-theme='dark'] .activeDeviceButton {
+  background: #0f1717;
+  border-color: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.82);
+}
+
 .bandSection {
   max-width: 100%;
   background: var(--course-soft);
@@ -693,6 +1284,38 @@ html[data-theme='dark'] .stepCard {
     grid-template-columns: 1fr;
   }
 
+  .dashboardHero,
+  .dashboardLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboardHero {
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+
+  .dashboardHero img {
+    width: min(100%, 330px);
+  }
+
+  .dashboardHeroActions {
+    justify-items: start;
+  }
+
+  .dashboardMap {
+    height: 410px;
+    min-height: 410px;
+  }
+
+  .metricGrid,
+  .chartGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .historyStatsGrid {
+    grid-template-columns: 1fr;
+  }
+
   .stepGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -703,6 +1326,37 @@ html[data-theme='dark'] .stepCard {
 }
 
 @media (max-width: 520px) {
+  .dashboardHero,
+  .dashboardLayout,
+  .metricGrid,
+  .historySection {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dashboardHeroText h1 {
+    font-size: clamp(2.45rem, 14vw, 3.5rem);
+  }
+
+  .dashboardMap {
+    height: 360px;
+    min-height: 360px;
+  }
+
+  .metricGrid,
+  .chartGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .historyHeader,
+  .panelHeader {
+    display: grid;
+  }
+
+  .chartFrame {
+    height: 310px;
+  }
+
   .stepGrid {
     grid-template-columns: 1fr;
   }
