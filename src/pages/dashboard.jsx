@@ -30,6 +30,12 @@ const API_BASE =
 
 const LEAFLET_CSS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
 const LEAFLET_JS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+const SENSOR_LIMITS = {
+  pm25: {min: 0, max: 120, spikeDelta: 55},
+  pm10: {min: 0, max: 140, spikeDelta: 65},
+  temperature: {min: -10, max: 55, spikeDelta: 12},
+  humidity: {min: 0, max: 100, spikeDelta: 30},
+};
 
 const FALLBACK_DEVICES = [
   {
@@ -204,22 +210,26 @@ function normalizeDevice(device) {
   }
 
   const name = normalizeText(device.name);
+  const cleanedDevice = {
+    ...device,
+    last_measurement: cleanLastMeasurement(device.last_measurement),
+  };
 
   if (name.includes('colibri')) {
     return {
-      ...device,
+      ...cleanedDevice,
       team_id: 1,
     };
   }
 
   if (name.includes('mariposa')) {
     return {
-      ...device,
+      ...cleanedDevice,
       team_id: 2,
     };
   }
 
-  return device;
+  return cleanedDevice;
 }
 
 function getDeviceLabel(device) {
@@ -290,6 +300,89 @@ function formatDateTime(value) {
   }
 
   return new Date(value).toLocaleString('es-MX');
+}
+
+function isValidSensorValue(key, value) {
+  const limits = SENSOR_LIMITS[key];
+
+  if (!limits) {
+    return true;
+  }
+
+  return typeof value === 'number' && value >= limits.min && value <= limits.max;
+}
+
+function median(values) {
+  if (values.length === 0) {
+    return null;
+  }
+
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+
+  if (sorted.length % 2 === 0) {
+    return (sorted[middle - 1] + sorted[middle]) / 2;
+  }
+
+  return sorted[middle];
+}
+
+function cleanLastMeasurement(measurement) {
+  if (!measurement) {
+    return null;
+  }
+
+  return {
+    ...measurement,
+    pm25: isValidSensorValue('pm25', measurement.pm25) ? measurement.pm25 : null,
+    pm10: isValidSensorValue('pm10', measurement.pm10) ? measurement.pm10 : null,
+    temperature: isValidSensorValue('temperature', measurement.temperature)
+      ? measurement.temperature
+      : null,
+    humidity: isValidSensorValue('humidity', measurement.humidity)
+      ? measurement.humidity
+      : null,
+  };
+}
+
+function cleanMeasurementSeries(rows) {
+  const validRows = rows
+    .filter((row) => row?.time)
+    .map((row) => ({
+      ...row,
+      pm25: isValidSensorValue('pm25', row.pm25) ? row.pm25 : null,
+      pm10: isValidSensorValue('pm10', row.pm10) ? row.pm10 : null,
+      temperature: isValidSensorValue('temperature', row.temperature)
+        ? row.temperature
+        : null,
+      humidity: isValidSensorValue('humidity', row.humidity) ? row.humidity : null,
+    }));
+
+  Object.entries(SENSOR_LIMITS).forEach(([key, limits]) => {
+    const values = validRows
+      .map((row) => row[key])
+      .filter((value) => typeof value === 'number');
+    const center = median(values);
+
+    if (center == null) {
+      return;
+    }
+
+    validRows.forEach((row) => {
+      if (
+        typeof row[key] === 'number' &&
+        Math.abs(row[key] - center) > limits.spikeDelta
+      ) {
+        row[key] = null;
+      }
+    });
+  });
+
+  return validRows.filter((row) =>
+    ['pm25', 'pm10', 'temperature', 'humidity'].some(
+      (key) => typeof row[key] === 'number',
+    ),
+  );
 }
 
 function buildChartData(measurements) {
@@ -514,7 +607,7 @@ export default function Dashboard() {
     if (nextSelection?.type === 'sensor' && nextSelection.team_id != null) {
       try {
         const history = await fetchMeasurements(nextSelection.team_id);
-        setMeasurements(Array.isArray(history) ? history : []);
+        setMeasurements(Array.isArray(history) ? cleanMeasurementSeries(history) : []);
       } catch (caughtError) {
         console.error('No se pudo cargar el histórico del nodo.', {
           endpoint: `${API_BASE}/devices/team/${encodeURIComponent(
@@ -551,7 +644,7 @@ export default function Dashboard() {
 
     try {
       const history = await fetchMeasurements(device.team_id);
-      setMeasurements(Array.isArray(history) ? history : []);
+      setMeasurements(Array.isArray(history) ? cleanMeasurementSeries(history) : []);
       setLastUpdated(new Date());
     } catch (caughtError) {
       console.error('No se pudo cargar el histórico del nodo.', {
