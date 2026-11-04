@@ -30,6 +30,14 @@ const API_BASE =
 
 const LEAFLET_CSS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
 const LEAFLET_JS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+const FULL_HISTORY_LIMIT = 20000;
+const LIVE_HISTORY_LIMIT = 200;
+const HISTORY_RANGE_OPTIONS = [
+  {value: 'day', label: 'Un día', days: 1, bucketMinutes: null},
+  {value: '7days', label: '7 días', days: 7, bucketMinutes: 60},
+  {value: '30days', label: '30 días', days: 30, bucketMinutes: 180},
+  {value: 'all', label: 'Todo el histórico', days: null, bucketMinutes: 1440},
+];
 const SENSOR_LIMITS = {
   pm25: {min: 0, max: 120, spikeDelta: 55},
   pm10: {min: 0, max: 140, spikeDelta: 65},
@@ -135,9 +143,9 @@ async function fetchDevices() {
   return response.json();
 }
 
-async function fetchMeasurements(teamId) {
+async function fetchMeasurements(teamId, limit = FULL_HISTORY_LIMIT) {
   const response = await fetch(
-    `${API_BASE}/devices/team/${encodeURIComponent(teamId)}/measurements?limit=200`,
+    `${API_BASE}/devices/team/${encodeURIComponent(teamId)}/measurements?limit=${limit}`,
   );
 
   if (!response.ok) {
@@ -339,6 +347,146 @@ function getAvailableHistoryDates(rows) {
   );
 }
 
+function isValidMeasurementTime(value) {
+  const date = new Date(value);
+  return !Number.isNaN(date.getTime()) && date.getFullYear() >= 2020;
+}
+
+function getHistoryRangeOption(value) {
+  return (
+    HISTORY_RANGE_OPTIONS.find((option) => option.value === value) ||
+    HISTORY_RANGE_OPTIONS[0]
+  );
+}
+
+function filterMeasurementsByRange(rows, range, endDateKey) {
+  if (range === 'all') {
+    return [...rows].sort((a, b) => new Date(a.time) - new Date(b.time));
+  }
+
+  if (!endDateKey) {
+    return [];
+  }
+
+  const {days} = getHistoryRangeOption(range);
+  const start = new Date(`${endDateKey}T00:00:00`);
+  const end = new Date(`${endDateKey}T23:59:59.999`);
+  start.setDate(start.getDate() - (days - 1));
+
+  return rows
+    .filter((row) => {
+      const time = new Date(row.time);
+      return time >= start && time <= end;
+    })
+    .sort((a, b) => new Date(a.time) - new Date(b.time));
+}
+
+function averageMetric(rows, key) {
+  const values = rows
+    .map((row) => row[key])
+    .filter((value) => typeof value === 'number');
+
+  if (values.length === 0) {
+    return null;
+  }
+
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function aggregateMeasurements(rows, bucketMinutes) {
+  if (!bucketMinutes) {
+    return rows;
+  }
+
+  const buckets = new Map();
+
+  rows.forEach((row) => {
+    const time = new Date(row.time);
+    let key;
+    let bucketTime;
+
+    if (bucketMinutes === 1440) {
+      key = getLocalDateKey(row.time);
+      bucketTime = new Date(`${key}T12:00:00`).toISOString();
+    } else {
+      const bucketSize = bucketMinutes * 60 * 1000;
+      const bucketStart = Math.floor(time.getTime() / bucketSize) * bucketSize;
+      key = String(bucketStart);
+      bucketTime = new Date(bucketStart).toISOString();
+    }
+
+    if (!buckets.has(key)) {
+      buckets.set(key, {time: bucketTime, rows: []});
+    }
+
+    buckets.get(key).rows.push(row);
+  });
+
+  return [...buckets.values()]
+    .map((bucket) => ({
+      time: bucket.time,
+      pm25: averageMetric(bucket.rows, 'pm25'),
+      pm10: averageMetric(bucket.rows, 'pm10'),
+      temperature: averageMetric(bucket.rows, 'temperature'),
+      humidity: averageMetric(bucket.rows, 'humidity'),
+    }))
+    .sort((a, b) => new Date(a.time) - new Date(b.time));
+}
+
+function formatChartLabel(value, range) {
+  const date = new Date(value);
+
+  if (range === 'day') {
+    return formatTime(value);
+  }
+
+  if (range === 'all') {
+    return date.toLocaleDateString('es-MX', {
+      day: '2-digit',
+      month: 'short',
+    });
+  }
+
+  return `${date.toLocaleDateString('es-MX', {
+    day: '2-digit',
+    month: 'short',
+  })} ${formatTime(value)}`;
+}
+
+function formatShortDate(value) {
+  return new Date(value).toLocaleDateString('es-MX', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
+function getHistoryPeriodLabel(rows, range, endDateKey) {
+  if (rows.length === 0) {
+    return 'Sin datos en el periodo';
+  }
+
+  if (range === 'day') {
+    return formatDateLabel(endDateKey);
+  }
+
+  return `${formatShortDate(rows[0].time)} al ${formatShortDate(
+    rows[rows.length - 1].time,
+  )}`;
+}
+
+function mergeMeasurementRows(currentRows, incomingRows) {
+  const rowsByTime = new Map();
+
+  [...currentRows, ...incomingRows].forEach((row) => {
+    if (row?.time) {
+      rowsByTime.set(row.time, row);
+    }
+  });
+
+  return [...rowsByTime.values()];
+}
+
 function escapeCsvValue(value) {
   if (value == null) {
     return '';
@@ -348,7 +496,7 @@ function escapeCsvValue(value) {
   return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
-function downloadMeasurementsCsv(rows, device, dateKey) {
+function downloadMeasurementsCsv(rows, device, periodKey) {
   if (typeof window === 'undefined' || rows.length === 0) {
     return;
   }
@@ -382,7 +530,7 @@ function downloadMeasurementsCsv(rows, device, dateKey) {
     .replace(/^-|-$/g, '');
 
   link.href = url;
-  link.download = `arroyo-vivo-${deviceName}-${dateKey}.csv`;
+  link.download = `arroyo-vivo-${deviceName}-${periodKey}.csv`;
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -434,7 +582,7 @@ function cleanLastMeasurement(measurement) {
 
 function cleanMeasurementSeries(rows) {
   const validRows = rows
-    .filter((row) => row?.time)
+    .filter((row) => row?.time && isValidMeasurementTime(row.time))
     .map((row) => ({
       ...row,
       pm25: isValidSensorValue('pm25', row.pm25) ? row.pm25 : null,
@@ -472,8 +620,8 @@ function cleanMeasurementSeries(rows) {
   );
 }
 
-function buildChartData(measurements) {
-  const labels = measurements.map((row) => formatTime(row.time));
+function buildChartData(measurements, range = 'day') {
+  const labels = measurements.map((row) => formatChartLabel(row.time, range));
 
   return {
     particles: {
@@ -629,11 +777,13 @@ export default function Dashboard() {
   const mapRef = useRef(null);
   const markerLayerRef = useRef(null);
   const selectedDeviceRef = useRef(null);
+  const measurementsRef = useRef([]);
 
   const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [measurements, setMeasurements] = useState([]);
   const [selectedHistoryDate, setSelectedHistoryDate] = useState('');
+  const [historyRange, setHistoryRange] = useState('7days');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState(null);
@@ -642,19 +792,29 @@ export default function Dashboard() {
     selectedDeviceRef.current = selectedDevice;
   }, [selectedDevice]);
 
-  const updateMeasurements = useCallback((history, {resetDate = false} = {}) => {
-    const cleanedMeasurements = Array.isArray(history)
-      ? cleanMeasurementSeries(history)
-      : [];
-    const availableDates = getAvailableHistoryDates(cleanedMeasurements);
+  useEffect(() => {
+    measurementsRef.current = measurements;
+  }, [measurements]);
 
-    setMeasurements(cleanedMeasurements);
-    setSelectedHistoryDate((currentDate) =>
-      !resetDate && availableDates.includes(currentDate)
-        ? currentDate
-        : availableDates[0] || '',
-    );
-  }, []);
+  const updateMeasurements = useCallback(
+    (history, {merge = false, resetDate = false} = {}) => {
+      const incomingRows = Array.isArray(history) ? history : [];
+      const sourceRows = merge
+        ? mergeMeasurementRows(measurementsRef.current, incomingRows)
+        : incomingRows;
+      const cleanedMeasurements = cleanMeasurementSeries(sourceRows);
+      const availableDates = getAvailableHistoryDates(cleanedMeasurements);
+
+      measurementsRef.current = cleanedMeasurements;
+      setMeasurements(cleanedMeasurements);
+      setSelectedHistoryDate((currentDate) =>
+        !resetDate && availableDates.includes(currentDate)
+          ? currentDate
+          : availableDates[0] || '',
+      );
+    },
+    [],
+  );
 
   const loadDashboard = useCallback(async ({silent = false} = {}) => {
     if (!silent) {
@@ -701,24 +861,30 @@ export default function Dashboard() {
         currentDevices.length > 0 ? currentDevices : FALLBACK_DEVICES,
       );
       setSelectedDevice((currentSelection) => currentSelection || FALLBACK_DEVICES[0]);
-      updateMeasurements([]);
+      if (!silent) {
+        updateMeasurements([]);
+      }
       setLoading(false);
       return;
     }
 
     if (nextSelection?.type === 'sensor' && nextSelection.team_id != null) {
+      const historyLimit = silent ? LIVE_HISTORY_LIMIT : FULL_HISTORY_LIMIT;
+
       try {
-        const history = await fetchMeasurements(nextSelection.team_id);
-        updateMeasurements(history);
+        const history = await fetchMeasurements(nextSelection.team_id, historyLimit);
+        updateMeasurements(history, {merge: silent});
       } catch (caughtError) {
         console.error('No se pudo cargar el histórico del nodo.', {
           endpoint: `${API_BASE}/devices/team/${encodeURIComponent(
             nextSelection.team_id,
-          )}/measurements?limit=200`,
+          )}/measurements?limit=${historyLimit}`,
           error: caughtError,
         });
         setError(caughtError.message || 'Error al cargar mediciones');
-        updateMeasurements([]);
+        if (!silent) {
+          updateMeasurements([]);
+        }
       }
     } else {
       updateMeasurements([]);
@@ -745,14 +911,14 @@ export default function Dashboard() {
     setLoading(true);
 
     try {
-      const history = await fetchMeasurements(device.team_id);
+      const history = await fetchMeasurements(device.team_id, FULL_HISTORY_LIMIT);
       updateMeasurements(history, {resetDate: true});
       setLastUpdated(new Date());
     } catch (caughtError) {
       console.error('No se pudo cargar el histórico del nodo.', {
         endpoint: `${API_BASE}/devices/team/${encodeURIComponent(
           device.team_id,
-        )}/measurements?limit=200`,
+        )}/measurements?limit=${FULL_HISTORY_LIMIT}`,
         error: caughtError,
       });
       setError(caughtError.message || 'Error al cargar mediciones');
@@ -871,17 +1037,39 @@ export default function Dashboard() {
     () => getAvailableHistoryDates(measurements),
     [measurements],
   );
+  const selectedRangeOption = useMemo(
+    () => getHistoryRangeOption(historyRange),
+    [historyRange],
+  );
   const filteredMeasurements = useMemo(
+    () => filterMeasurementsByRange(measurements, historyRange, selectedHistoryDate),
+    [historyRange, measurements, selectedHistoryDate],
+  );
+  const chartMeasurements = useMemo(
     () =>
-      measurements
-        .filter((row) => getLocalDateKey(row.time) === selectedHistoryDate)
-        .sort((a, b) => new Date(a.time) - new Date(b.time)),
-    [measurements, selectedHistoryDate],
+      aggregateMeasurements(filteredMeasurements, selectedRangeOption.bucketMinutes),
+    [filteredMeasurements, selectedRangeOption],
   );
   const chartData = useMemo(
-    () => buildChartData(filteredMeasurements),
-    [filteredMeasurements],
+    () => buildChartData(chartMeasurements, historyRange),
+    [chartMeasurements, historyRange],
   );
+  const historyPeriodLabel = useMemo(
+    () => getHistoryPeriodLabel(filteredMeasurements, historyRange, selectedHistoryDate),
+    [filteredMeasurements, historyRange, selectedHistoryDate],
+  );
+  const aggregationLabel =
+    historyRange === 'day'
+      ? 'Lecturas individuales'
+      : historyRange === 'all'
+        ? 'Promedios diarios'
+        : historyRange === '30days'
+          ? 'Promedios cada 3 horas'
+          : 'Promedios por hora';
+  const downloadPeriodKey =
+    historyRange === 'all'
+      ? 'historico-completo'
+      : `${historyRange}-hasta-${selectedHistoryDate}`;
   const historyStats = useMemo(
     () => ({
       pm25: getStats(filteredMeasurements, 'pm25'),
@@ -1127,10 +1315,8 @@ export default function Dashboard() {
               <h2>Histórico ambiental</h2>
               <p>
                 {selectedIsSensor
-                  ? `${filteredMeasurements.length} mediciones del ${formatDateLabel(
-                      selectedHistoryDate,
-                    )} registradas por ${
-                      selectedDevice?.name || 'el nodo'
+                  ? `${filteredMeasurements.length} mediciones · ${historyPeriodLabel} · ${
+                      selectedDevice?.name || 'Nodo'
                     }${
                       selectedDevice?.team_id != null
                         ? `, equipo ${selectedDevice.team_id}.`
@@ -1142,23 +1328,39 @@ export default function Dashboard() {
             {selectedIsSensor && (
               <div className="historyControls">
                 <label className="historyDateField">
-                  <span>Fecha de datos</span>
+                  <span>Periodo</span>
                   <select
-                    value={selectedHistoryDate}
-                    onChange={(event) => setSelectedHistoryDate(event.target.value)}
-                    disabled={loading || availableHistoryDates.length === 0}
+                    value={historyRange}
+                    onChange={(event) => setHistoryRange(event.target.value)}
+                    disabled={loading || measurements.length === 0}
                   >
-                    {availableHistoryDates.length === 0 ? (
-                      <option value="">Sin fechas disponibles</option>
-                    ) : (
-                      availableHistoryDates.map((date) => (
-                        <option key={date} value={date}>
-                          {formatDateLabel(date)}
-                        </option>
-                      ))
-                    )}
+                    {HISTORY_RANGE_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
                   </select>
                 </label>
+                {historyRange !== 'all' && (
+                  <label className="historyDateField">
+                    <span>{historyRange === 'day' ? 'Fecha' : 'Hasta'}</span>
+                    <select
+                      value={selectedHistoryDate}
+                      onChange={(event) => setSelectedHistoryDate(event.target.value)}
+                      disabled={loading || availableHistoryDates.length === 0}
+                    >
+                      {availableHistoryDates.length === 0 ? (
+                        <option value="">Sin fechas disponibles</option>
+                      ) : (
+                        availableHistoryDates.map((date) => (
+                          <option key={date} value={date}>
+                            {formatDateLabel(date)}
+                          </option>
+                        ))
+                      )}
+                    </select>
+                  </label>
+                )}
                 <button
                   className="downloadDataButton"
                   type="button"
@@ -1166,7 +1368,7 @@ export default function Dashboard() {
                     downloadMeasurementsCsv(
                       filteredMeasurements,
                       selectedDevice,
-                      selectedHistoryDate,
+                      downloadPeriodKey,
                     )
                   }
                   disabled={loading || filteredMeasurements.length === 0}
@@ -1180,6 +1382,12 @@ export default function Dashboard() {
 
           {selectedIsSensor ? (
             <>
+              <div className="historyScopeBar" aria-label="Resumen del periodo histórico">
+                <span>{aggregationLabel} en las gráficas</span>
+                <span>{chartMeasurements.length} puntos visualizados</span>
+                <span>{filteredMeasurements.length} filas en la descarga</span>
+              </div>
+
               <div className="historyStatsGrid">
                 <StatCard
                   label="PM2.5"
@@ -1213,7 +1421,7 @@ export default function Dashboard() {
                     {filteredMeasurements.length > 0 ? (
                       <Line data={chartData.particles} options={particleChartOptions} />
                     ) : (
-                      <p className="emptyChart">Sin mediciones para la fecha seleccionada.</p>
+                      <p className="emptyChart">Sin mediciones para el periodo seleccionado.</p>
                     )}
                   </div>
                 </article>
@@ -1229,7 +1437,7 @@ export default function Dashboard() {
                     {filteredMeasurements.length > 0 ? (
                       <Line data={chartData.climate} options={climateChartOptions} />
                     ) : (
-                      <p className="emptyChart">Sin mediciones para la fecha seleccionada.</p>
+                      <p className="emptyChart">Sin mediciones para el periodo seleccionado.</p>
                     )}
                   </div>
                 </article>
