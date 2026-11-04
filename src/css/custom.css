@@ -1067,7 +1067,77 @@ html[data-theme='dark'] .stepCard {
 
 .historyHeader {
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 1rem;
+}
+
+.historyHeader > div:first-child {
+  flex: 1 1 360px;
+}
+
+.historyControls {
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.historyDateField {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+}
+
+.historyDateField span {
+  color: #526460;
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.historyDateField select,
+.downloadDataButton {
+  min-height: 42px;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 850;
+}
+
+.historyDateField select {
+  min-width: 210px;
+  border: 1px solid rgba(16, 67, 78, 0.22);
+  background: #ffffff;
+  color: var(--course-dark);
+  cursor: pointer;
+  padding: 0.55rem 2.2rem 0.55rem 0.72rem;
+}
+
+.downloadDataButton {
+  border: 2px solid var(--course-teal);
+  background: #ffffff;
+  color: var(--course-teal);
+  cursor: pointer;
+  padding: 0.5rem 0.85rem;
+}
+
+.historyDateField select:focus-visible,
+.downloadDataButton:focus-visible {
+  outline: 3px solid rgba(245, 176, 65, 0.42);
+  outline-offset: 2px;
+}
+
+.historyDateField select:disabled,
+.downloadDataButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.downloadDataButton:not(:disabled):hover {
+  background: var(--course-teal);
+  color: #ffffff;
 }
 
 .loadingPill {
@@ -1182,6 +1252,17 @@ html[data-theme='dark'] .activeDeviceButton {
   background: #0f1717;
   border-color: rgba(255,255,255,0.12);
   color: rgba(255,255,255,0.82);
+}
+
+html[data-theme='dark'] .historyDateField span {
+  color: rgba(255,255,255,0.7);
+}
+
+html[data-theme='dark'] .historyDateField select,
+html[data-theme='dark'] .downloadDataButton {
+  background: #151f1f;
+  border-color: rgba(128, 203, 196, 0.52);
+  color: #80cbc4;
 }
 
 .bandSection {
@@ -1351,6 +1432,18 @@ html[data-theme='dark'] .activeDeviceButton {
   .historyHeader,
   .panelHeader {
     display: grid;
+  }
+
+  .historyControls {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .historyDateField select,
+  .downloadDataButton {
+    width: 100%;
   }
 
   .chartFrame {

@@ -110,6 +110,7 @@ const chartBaseOptions = {
         color: '#61716e',
         maxRotation: 0,
         autoSkipPadding: 22,
+        maxTicksLimit: 8,
       },
     },
     y: {
@@ -300,6 +301,92 @@ function formatDateTime(value) {
   }
 
   return new Date(value).toLocaleString('es-MX');
+}
+
+function getLocalDateKey(value) {
+  if (!value) {
+    return '';
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+function formatDateLabel(value) {
+  if (!value) {
+    return 'Sin fecha';
+  }
+
+  return new Date(`${value}T12:00:00`).toLocaleDateString('es-MX', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+function getAvailableHistoryDates(rows) {
+  return [...new Set(rows.map((row) => getLocalDateKey(row.time)).filter(Boolean))].sort(
+    (a, b) => b.localeCompare(a),
+  );
+}
+
+function escapeCsvValue(value) {
+  if (value == null) {
+    return '';
+  }
+
+  const text = String(value);
+  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function downloadMeasurementsCsv(rows, device, dateKey) {
+  if (typeof window === 'undefined' || rows.length === 0) {
+    return;
+  }
+
+  const headers = [
+    'device_name',
+    'team_id',
+    'time',
+    'pm25_ug_m3',
+    'pm10_ug_m3',
+    'temperature_c',
+    'humidity_percent',
+  ];
+  const csvRows = rows.map((row) => [
+    device?.name || '',
+    device?.team_id ?? '',
+    row.time,
+    row.pm25,
+    row.pm10,
+    row.temperature,
+    row.humidity,
+  ]);
+  const csv = [headers, ...csvRows]
+    .map((row) => row.map(escapeCsvValue).join(','))
+    .join('\n');
+  const blob = new Blob([`\uFEFF${csv}`], {type: 'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const deviceName = normalizeText(device?.name || 'sensor')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  link.href = url;
+  link.download = `arroyo-vivo-${deviceName}-${dateKey}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
 function isValidSensorValue(key, value) {
@@ -546,6 +633,7 @@ export default function Dashboard() {
   const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [measurements, setMeasurements] = useState([]);
+  const [selectedHistoryDate, setSelectedHistoryDate] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState(null);
@@ -553,6 +641,20 @@ export default function Dashboard() {
   useEffect(() => {
     selectedDeviceRef.current = selectedDevice;
   }, [selectedDevice]);
+
+  const updateMeasurements = useCallback((history, {resetDate = false} = {}) => {
+    const cleanedMeasurements = Array.isArray(history)
+      ? cleanMeasurementSeries(history)
+      : [];
+    const availableDates = getAvailableHistoryDates(cleanedMeasurements);
+
+    setMeasurements(cleanedMeasurements);
+    setSelectedHistoryDate((currentDate) =>
+      !resetDate && availableDates.includes(currentDate)
+        ? currentDate
+        : availableDates[0] || '',
+    );
+  }, []);
 
   const loadDashboard = useCallback(async ({silent = false} = {}) => {
     if (!silent) {
@@ -599,7 +701,7 @@ export default function Dashboard() {
         currentDevices.length > 0 ? currentDevices : FALLBACK_DEVICES,
       );
       setSelectedDevice((currentSelection) => currentSelection || FALLBACK_DEVICES[0]);
-      setMeasurements([]);
+      updateMeasurements([]);
       setLoading(false);
       return;
     }
@@ -607,7 +709,7 @@ export default function Dashboard() {
     if (nextSelection?.type === 'sensor' && nextSelection.team_id != null) {
       try {
         const history = await fetchMeasurements(nextSelection.team_id);
-        setMeasurements(Array.isArray(history) ? cleanMeasurementSeries(history) : []);
+        updateMeasurements(history);
       } catch (caughtError) {
         console.error('No se pudo cargar el histórico del nodo.', {
           endpoint: `${API_BASE}/devices/team/${encodeURIComponent(
@@ -616,27 +718,27 @@ export default function Dashboard() {
           error: caughtError,
         });
         setError(caughtError.message || 'Error al cargar mediciones');
-        setMeasurements([]);
+        updateMeasurements([]);
       }
     } else {
-      setMeasurements([]);
+      updateMeasurements([]);
     }
 
     setLoading(false);
-  }, []);
+  }, [updateMeasurements]);
 
   const selectDevice = useCallback(async (device) => {
     setSelectedDevice(device);
     setError('');
 
     if (device.type !== 'sensor') {
-      setMeasurements([]);
+      updateMeasurements([]);
       return;
     }
 
     if (device.team_id == null) {
       setError('El sensor seleccionado no tiene team_id para consultar histórico');
-      setMeasurements([]);
+      updateMeasurements([]);
       return;
     }
 
@@ -644,7 +746,7 @@ export default function Dashboard() {
 
     try {
       const history = await fetchMeasurements(device.team_id);
-      setMeasurements(Array.isArray(history) ? cleanMeasurementSeries(history) : []);
+      updateMeasurements(history, {resetDate: true});
       setLastUpdated(new Date());
     } catch (caughtError) {
       console.error('No se pudo cargar el histórico del nodo.', {
@@ -654,11 +756,11 @@ export default function Dashboard() {
         error: caughtError,
       });
       setError(caughtError.message || 'Error al cargar mediciones');
-      setMeasurements([]);
+      updateMeasurements([]);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [updateMeasurements]);
 
   useEffect(() => {
     loadDashboard();
@@ -765,14 +867,28 @@ export default function Dashboard() {
   const activeSensors = devices.filter((device) => device.type === 'sensor');
   const activeGateways = devices.filter((device) => device.type === 'gateway');
   const pm25Status = getPm25Status(selectedMeasurement.pm25);
-  const chartData = useMemo(() => buildChartData(measurements), [measurements]);
+  const availableHistoryDates = useMemo(
+    () => getAvailableHistoryDates(measurements),
+    [measurements],
+  );
+  const filteredMeasurements = useMemo(
+    () =>
+      measurements
+        .filter((row) => getLocalDateKey(row.time) === selectedHistoryDate)
+        .sort((a, b) => new Date(a.time) - new Date(b.time)),
+    [measurements, selectedHistoryDate],
+  );
+  const chartData = useMemo(
+    () => buildChartData(filteredMeasurements),
+    [filteredMeasurements],
+  );
   const historyStats = useMemo(
     () => ({
-      pm25: getStats(measurements, 'pm25'),
-      temperature: getStats(measurements, 'temperature'),
-      humidity: getStats(measurements, 'humidity'),
+      pm25: getStats(filteredMeasurements, 'pm25'),
+      temperature: getStats(filteredMeasurements, 'temperature'),
+      humidity: getStats(filteredMeasurements, 'humidity'),
     }),
-    [measurements],
+    [filteredMeasurements],
   );
 
   const particleChartOptions = useMemo(
@@ -1011,7 +1127,9 @@ export default function Dashboard() {
               <h2>Histórico ambiental</h2>
               <p>
                 {selectedIsSensor
-                  ? `Últimas ${measurements.length} mediciones registradas por ${
+                  ? `${filteredMeasurements.length} mediciones del ${formatDateLabel(
+                      selectedHistoryDate,
+                    )} registradas por ${
                       selectedDevice?.name || 'el nodo'
                     }${
                       selectedDevice?.team_id != null
@@ -1021,7 +1139,43 @@ export default function Dashboard() {
                   : 'Selecciona el nodo Colibrí en el mapa para consultar mediciones históricas.'}
               </p>
             </div>
-            {loading && <span className="loadingPill">Cargando datos...</span>}
+            {selectedIsSensor && (
+              <div className="historyControls">
+                <label className="historyDateField">
+                  <span>Fecha de datos</span>
+                  <select
+                    value={selectedHistoryDate}
+                    onChange={(event) => setSelectedHistoryDate(event.target.value)}
+                    disabled={loading || availableHistoryDates.length === 0}
+                  >
+                    {availableHistoryDates.length === 0 ? (
+                      <option value="">Sin fechas disponibles</option>
+                    ) : (
+                      availableHistoryDates.map((date) => (
+                        <option key={date} value={date}>
+                          {formatDateLabel(date)}
+                        </option>
+                      ))
+                    )}
+                  </select>
+                </label>
+                <button
+                  className="downloadDataButton"
+                  type="button"
+                  onClick={() =>
+                    downloadMeasurementsCsv(
+                      filteredMeasurements,
+                      selectedDevice,
+                      selectedHistoryDate,
+                    )
+                  }
+                  disabled={loading || filteredMeasurements.length === 0}
+                >
+                  Descargar CSV
+                </button>
+                {loading && <span className="loadingPill">Cargando datos...</span>}
+              </div>
+            )}
           </div>
 
           {selectedIsSensor ? (
@@ -1056,10 +1210,10 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="chartFrame">
-                    {measurements.length > 0 ? (
+                    {filteredMeasurements.length > 0 ? (
                       <Line data={chartData.particles} options={particleChartOptions} />
                     ) : (
-                      <p className="emptyChart">Sin mediciones históricas disponibles.</p>
+                      <p className="emptyChart">Sin mediciones para la fecha seleccionada.</p>
                     )}
                   </div>
                 </article>
@@ -1072,10 +1226,10 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="chartFrame">
-                    {measurements.length > 0 ? (
+                    {filteredMeasurements.length > 0 ? (
                       <Line data={chartData.climate} options={climateChartOptions} />
                     ) : (
-                      <p className="emptyChart">Sin mediciones históricas disponibles.</p>
+                      <p className="emptyChart">Sin mediciones para la fecha seleccionada.</p>
                     )}
                   </div>
                 </article>
